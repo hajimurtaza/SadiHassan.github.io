@@ -113,8 +113,9 @@ custom-navbar{
 	}
 	.main-menu-sadi ul { 
 	margin: 0; 
-	padding: 5px;
-	min-height: 40%; 
+	padding: 1%;
+	min-height: 40%;
+	min-width: 110%;	
 	list-style-type: none; 
 	text-align: center; 
 	background-color: #A8C3E1; 
@@ -146,4 +147,9 @@ custom-navbar{
 		background-position:center;
 		background-size:cover;
 		margin-left: 20%;
+	}
+	.mid-body{
+		background-color: 000;
+		color: red;
+		margin-left:25%;
 	}

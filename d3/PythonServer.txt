@@ -1,0 +1,2 @@
+python -m http.server 8000 ===> this will run a simple http server for "***Python3***" at port 8000
+python -m SimpleHTTPServer 8000 ===> this will run a simple http server for "***Python2***" at port 8000

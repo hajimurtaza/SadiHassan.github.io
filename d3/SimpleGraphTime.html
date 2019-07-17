@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+.line {
+  fill: none;
+  stroke: yellow;
+  stroke-width: 2px;
+}
+
+</style>
+<body>
+
+<!-- load the d3.js library -->    	
+<script src="js/d3.v4.min.js"></script>
+<script>
+
+var svg = d3.select("body").append("svg")
+
+function redraw(){
+var top_distance_factor = 0.2
+	bottom_distance_factor = 0.2,
+	left_distance_factor = 0.2,
+	right_distance_factor = 0.2;
+// set the dimensions and margins of the graph
+var margin = {top: window.innerHeight*top_distance_factor, 
+			  right: window.innerWidth*right_distance_factor, 
+			  bottom: window.innerHeight*bottom_distance_factor, 
+			  left: 100},//window.innerWidth*left_distance_factor},
+    
+	width = window.innerWidth - margin.left - margin.right,
+    height = window.innerHeight - margin.top - margin.bottom;
+
+console.log("width: "+width)	
+console.log("height: "+height)
+
+// parse the date / time
+var parseTime = d3.timeParse("%d-%b-%y");
+var parseTimeHour = d3.timeParse("%H:%M %p");
+// set the ranges
+var x = d3.scaleTime().range([0, width]);
+//var y = d3.scaleLinear().range([height, 0]);
+var y = d3.scaleTime().range([height, 0]);
+// define the line
+var valueline = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.sunrise); });
+
+var valueline2 = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.sunset); });
+// append the svg object to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+
+	//svg.selectAll("*").remove();
+svg = svg.attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+	.append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+	
+// Get the data
+d3.csv("year.csv", function(error, data) {
+  if (error) throw error;
+
+  // format the data
+  data.forEach(function(d) {
+      d.date = parseTime(d.date);
+      d.sunrise = parseTimeHour(d.sunrise);
+	  d.sunset = parseTimeHour(d.sunset);
+	  console.log(d.sunrise);
+	  console.log(d.sunset);
+	  //console.log(d.close);
+  });
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  //y.domain(d3.extent(data, function(d) { return d.time; }));	
+  y.domain(d3.extent([parseTimeHour("00:00 AM"),parseTimeHour("11:59 PM")]));
+  
+  // Add the valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", valueline);
+ 
+ // Add the valueline2 path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+	  .style("stroke", "red")
+      .attr("d", valueline2);
+	  
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+
+});
+}
+redraw();
+//window.addEventListener("resize", redraw);
+
+console.log(window.innerHeight+" -- "+window.innerWidth);
+var parseTimeHours = d3.timeParse("%H:%M %p");
+var timeHour = parseTimeHours("11:05 AM");
+console.log("timeHour: " + timeHour);
+</script>
+</body>

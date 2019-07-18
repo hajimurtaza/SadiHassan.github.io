@@ -80,10 +80,10 @@ var col = row.selectAll(".square") //.... and from where did this ".square" come
 				.style("stroke","#222")
 				.on('click', function(d) {
 					d.click++;
-					if ((d.click)%4 == 0 ) { d3.select(this).style("fill","#fff"); }
-					if ((d.click)%4 == 1 ) { d3.select(this).style("fill","#2C93E8"); }
-					if ((d.click)%4 == 2 ) { d3.select(this).style("fill","#F56C4E"); }
-					if ((d.click)%4 == 3 ) { d3.select(this).style("fill","#838690"); }
+					if ((d.click)%2 == 0 ) { d3.select(this).style("fill","#008000"); }
+					if ((d.click)%2 == 1 ) { d3.select(this).style("fill","#A4E289"); }
+					//if ((d.click)%4 == 2 ) { d3.select(this).style("fill","#F56C4E"); }
+					//if ((d.click)%4 == 3 ) { d3.select(this).style("fill","#838690"); }
 				});
 
 

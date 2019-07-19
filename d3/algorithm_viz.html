@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+	<div id="grid">Click to add obstacle in grid
+  	<input type="checkbox" onclick='handleClick()'>
+</label>
+</div>
+<!-- load the d3.js library -->    	
+<script src="js/d3.v4.min.js"></script>
+<script>
+
+var edit_mode = false;
+var source_row = 10;
+var source_row = 10;
+var dest_row = 20;
+var dest_row = 20;
+
+function handleClick(){
+	edit_mode = edit_mode ^ true;
+}
+
+function gridData() {
+	var data = new Array();
+	var xpos = 1;
+	var ypos = 1;
+	var width = 20;
+	var height = 20;
+	var numRows = 25;
+	var numCols = 25;
+	var click = 0;
+	
+	for(var row = 0; row < numRows; row++) {
+		data.push( new Array() );
+		for(var col = 0; col < numCols; col++) {
+			data[row].push(
+				{
+					x: xpos,
+					y: ypos,
+					width: width,
+					height: height,
+					click: click
+				}
+			);
+			xpos += width;
+		}
+		
+		xpos = 1;
+		ypos += height;
+	}
+	
+	return data;
+}
+
+var gridData = gridData();
+var grid_start_x = 50;
+var grid_start_y = 50;
+
+var doc_width = document.documentElement.clientWidth;
+var doc_height = document.documentElement.clientHeight;
+
+//alert(document.documentElement.clientWidth);
+console.log("doc_width: "+doc_width);
+console.log("doc_height: "+doc_height);
+
+var grid = d3.select("#grid")
+			.append("svg")
+			.attr("width",""+doc_width+"px")
+			.attr("height",""+doc_height+"px")
+
+var row = grid.selectAll(".row") //from where did this ".row" comes from?
+				.data(gridData)
+				.enter().append("g")
+				.attr("class", "row");
+
+var col = row.selectAll(".square") //.... and from where did this ".square" comes from?
+				.data(function(d) { return d; })
+				.enter()
+				.append("rect")
+				.attr("class","square")
+				.attr("x", function(d){ return d.x + grid_start_x; })
+				.attr("y", function(d){ return d.y + grid_start_y; })
+				.attr("width", function(d){ return d.width })
+				.attr("height", function(d){ return d.height; })
+				.style("fill","#fff")
+				.style("stroke","#222")
+				.on('click', function(d) {
+					d.click++;
+					if(edit_mode == false) return;
+					d3.select(this).style("fill","#583410"); 
+				});
+
+</script>
+</body>

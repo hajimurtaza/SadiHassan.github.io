@@ -98,3 +98,8 @@ cars.forEach( car => { print(car.price);});
 print('[12] forEach way-2: function was saved as a closure...');
 printCarPrice = car => { print(car.price);}
 cars.forEach(printCarPrice);
+
+print('[13] prices = cars.map( car => car.price ); /*return car.price*/ ');
+
+prices = cars.map( car => car.price );
+print(prices)

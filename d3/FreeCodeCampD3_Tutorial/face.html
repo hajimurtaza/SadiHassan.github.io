@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+	<div>
+		<input type="button" value="Jump brow again!" onclick="jumpingBrow()">
+	</div>
+</label>
+
+<!-- load the d3.js library -->    	
+<script src="../js/d3.v4.min.js"></script>
+<script>
+jumpingBrow = () => { 
+let svg = d3.select('body').append('svg');
+
+svg.attr('width', 500)
+	.attr('height', 500)
+
+const height = +svg.attr('height');
+const width = +svg.attr('width');
+
+const g = svg.append('g')
+						 .attr('transform', `translate(${width / 2}, ${height/2})`)	
+const circle = g.append('circle')
+							.attr('r', width/2)
+							.attr('fill', 'yellow')
+							.attr('stroke', 'black');
+
+//console.log(circle.attr('cx'));
+
+const eyeSpacing = 100;
+const eyeYOffset = -70;
+const eyeRadius = 30;
+const eyebrowWidth = 70;
+const eyebrowHeight = 15;
+const eyebrowYOffset = -70;
+
+const eyesG = g.append('g')
+							  .attr('transform', `translate(0, ${eyeYOffset})`)
+							  .attr('fill', 'black');
+
+const eyebrowsG = eyesG
+	  .append('g')
+    .attr('transform', `translate(0, ${eyebrowYOffset})`);
+ 
+eyebrowsG
+  .transition().duration(2000)
+    .attr('transform', `translate(0, ${eyebrowYOffset - 50})`)
+  .transition().duration(2000)
+    .attr('transform', `translate(0, ${eyebrowYOffset})`);
+
+const leftEyebrow = eyebrowsG.append('rect')
+												.attr('x', -eyeSpacing - eyebrowWidth/2)
+												//.attr('y', eyebrowYOffset)
+												.attr('width', eyebrowWidth)
+												.attr('height', eyebrowHeight)
+
+const rightEyebrow = eyebrowsG.append('rect')
+														.attr('x', +eyeSpacing - eyebrowWidth/2)
+														//.attr('y', eyebrowYOffset)
+														.attr('width', eyebrowWidth)
+														.attr('height', eyebrowHeight)
+													
+const leftEye = eyesG.append('circle')
+							.attr('r', eyeRadius)
+							.attr('cx', - eyeSpacing)
+							
+
+const rightEye = eyesG.append('circle')
+							.attr('r', eyeRadius)
+							.attr('cx', eyeSpacing)
+							
+const mouth = g.append('path')
+				.attr('d', d3.arc()({
+                  innerRadius: 150,
+                  outerRadius: 170,
+                  startAngle: Math.PI / 2,
+                  endAngle: 3*Math.PI / 2
+                }))
+}
+
+window.onload = jumpingBrow;
+</script>
+</body>

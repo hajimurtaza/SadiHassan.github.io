@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+
+rect{
+	fill: red;
+	opacity: 0.6;
+}
+
+rect:hover{
+	fill: #5B5BEE;
+}
+
+text{
+  font-family: sans-serif;
+}
+
+.tick text{
+	font-size: 1.6em; 
+  fill: #635F50;
+}
+
+.tick line{
+	stroke: #C0C0BB;
+}
+
+.axis-label{
+	font-size: 2.9em;
+  fill: #ada899;
+}
+
+.title{
+	font-size: 2.9em;
+    fill: #6f8a87;
+}
+</style>
+<body>
+	<svg width="960" height="500"></svg>
+</label>
+
+<!-- load the d3.js library -->    	
+<script src="../js/d3.v5.min.js"></script>
+<!--<script src="https://unpkg.com/d3@5.9.2/dist/d3.min.js"></script>-->
+
+<script>
+/* 
+import { select, 
+        csv, 
+        scaleLinear, 
+        max, 
+        scaleBand, 
+        axisLeft, 
+        axisBottom,
+        format
+       } from 'd3';
+*/
+const svg = d3.select('svg');
+
+const width = +svg.attr('width');
+const height = +svg.attr('height');
+ 
+const render = data => {
+  console.log(data);
+  
+  const xValue = d => d.no_of_accidents;
+  const yValue = d => d.year;
+  const margin = {top: 90, right: 50, left: 150, bottom: 70};
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+  
+  //Take away=> xScale returns a VALUE!!!!!
+  //Need to understand this more :(
+  const xScale = d3.scaleLinear() //understand max() func
+  							.domain([0, d3.max(data, xValue)+100])
+  							.range([0, innerWidth]);
+	
+  const yScale = d3.scaleBand()
+  							 .domain(data.map(yValue))
+  							 .range([innerHeight, 0])
+  							 .padding(0.1);
+  
+  const xAxisTickFormat = d =>
+  			d3.format('.3s')(d); //How ()() worked?
+  
+  const yAxis = d3.axisLeft(yScale);
+  const xAxis = d3.axisBottom(xScale).tickFormat(xAxisTickFormat)
+  							.tickSize(-innerHeight);
+  
+  console.log(yScale.domain());
+  console.log(xScale(100000000000));
+  console.log(xScale.domain());
+  console.log(xScale.range());
+  
+  
+  
+  const g = svg.append('g')
+  		.attr('transform', `translate(${margin.left},${margin.top})`);			
+  
+  g.append('g').call(yAxis)
+    .selectAll('.domain, .tick line')
+    .remove();
+  
+  const xAxisG = g.append('g').call(xAxis)
+  		.attr('transform', `translate(0,${innerHeight})`);
+  
+  xAxisG.select('.domain').remove();
+  xAxisG.append('text')
+  	.attr('class', 'axis-label')
+  	.attr('x', innerWidth / 2)
+  	.attr('y', margin.bottom - 10)
+  	.attr('fill', 'black')
+  	.text('No of Accidents');
+  
+  g.selectAll('rect').data(data)
+  	.enter().append('rect') //how xScale works when we are passing a single value (d.population)?
+  	.attr('y', d => yScale(yValue(d))) //how it worked? yValue(d) = d.country ? How?
+  	.attr('width', d => xScale(xValue(d))) //how xValue(d) = d.population ?
+  	.attr('height', yScale.bandwidth())
+  
+  g.append('text')
+  	.attr('class', 'title')
+  	.attr('y', -10)
+  	.text('Fredericton Accident by Year');
+};
+
+d3.csv('data/year_vs_no_of_accidents.csv').then(data =>{
+	data.forEach(d =>{
+  	d.no_of_accidents = +d.no_of_accidents;
+  });
+  render(data);
+});
+</script>
+</body>

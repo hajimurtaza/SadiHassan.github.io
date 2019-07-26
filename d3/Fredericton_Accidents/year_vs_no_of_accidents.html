@@ -37,6 +37,20 @@ text{
 	font-size: 2.9em;
     fill: #6f8a87;
 }
+
+div.tooltip {
+  color: black;
+  position: absolute;
+  text-align: center;
+  width: 40px;
+  height: 15px;
+  padding: 2px;
+  font-family: 12px sans-serif;
+  font-size: 0.9em;
+  background: rgba(255,255,255,.8);
+  border: 0px solid black;
+  pointer-events: none;
+}
 </style>
 <body>
 	<svg width="960" height="500"></svg>
@@ -95,7 +109,11 @@ const render = data => {
   console.log(xScale.domain());
   console.log(xScale.range());
   
-  
+  const div = d3
+            .select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
   
   const g = svg.append('g')
   		.attr('transform', `translate(${margin.left},${margin.top})`);			
@@ -120,6 +138,23 @@ const render = data => {
   	.attr('y', d => yScale(yValue(d))) //how it worked? yValue(d) = d.country ? How?
   	.attr('width', d => xScale(xValue(d))) //how xValue(d) = d.population ?
   	.attr('height', yScale.bandwidth())
+    .style('cursor', 'crosshair')
+    .on('mouseover', d => {
+      div
+        .transition()
+        .duration(200)
+        .style('opacity', 0.9);
+      div
+        .html(d.no_of_accidents)
+        .style('left', d3.event.pageX + 'px') //d3.event.pageX
+        .style('top', d3.event.pageY + 'px'); //d3.event.pageY - innerHeight
+    })
+    .on('mouseout', () => {
+      div
+        .transition()
+        .duration(500)
+        .style('opacity', 0);
+    });
   
   g.append('text')
   	.attr('class', 'title')

@@ -104,9 +104,10 @@ function render(){
 		  .attr("height", y.bandwidth())
 		  .style("fill", function(d) { return myColor(d.total_accident - thresh)} )
 			.on("mouseover", function(){
-				d3.select(this).style("fill","steelblue")})
+				d3.select(this).style("fill","steelblue")})	
 			.on("mouseout", function(d){
-				d3.select(this).style("fill", function(d) { return myColor(d.total_accident - thresh)} )});
+				d3.select(this).style("fill", function(d) { return myColor(d.total_accident - thresh)} )})
+			
 	/*	  
 	grid.on("mouseover", function() {
             d3.select(this)
@@ -135,11 +136,14 @@ function render(){
 							.attr('opacity', '1')
 							.attr('font-weight', 'bold')
 							});
+	
+							
 	textG.on("mouseout", function(){
 							d3.select(this)
 							.attr('opacity', '0.7')
 							.attr('font-weight', 'normal')
 							});
+	
 	
 	})
 	

@@ -23,6 +23,13 @@
 	color: blue;
 }
 
+rect{
+	opacity: 1;
+}
+
+rect:hover{
+	fill: #5B5BEE;
+}
 </style>
 <div><h2>Fredericton Accident HeatMap (Year/Month)</h2>
 	Min number of accidents (min thresh)
@@ -87,7 +94,7 @@ function render(){
 
 	//Read the data
 	d3.csv("data/monthly_distribution_by_year.csv", function(data) {
-	  svg.selectAll()
+	let grid = svg.selectAll()
 		  .data(data, function(d) { return d.month+':'+d.year;})
 		  .enter()
 		  .append("rect")
@@ -96,8 +103,21 @@ function render(){
 		  .attr("width", x.bandwidth())
 		  .attr("height", y.bandwidth())
 		  .style("fill", function(d) { return myColor(d.total_accident - thresh)} )
-		  
-	  svg.selectAll()
+			.on("mouseover", function(){
+				d3.select(this).style("fill","steelblue")})
+			.on("mouseout", function(d){
+				d3.select(this).style("fill", function(d) { return myColor(d.total_accident - thresh)} )});
+	/*	  
+	grid.on("mouseover", function() {
+            d3.select(this)
+            	.attr("fill", "red");
+        });
+    grid.on("mouseout", function(d, i) {
+            d3.select(this).attr("fill", function() {
+                return "" + color(this.id) + "";
+            });
+	*/
+	let textG =  svg.selectAll()
 		.data(data, function(d) { return d.month+':'+d.year;})
 		.enter()
 		.append('text')
@@ -108,8 +128,22 @@ function render(){
 				return (d.total_accident - thresh); }
 			)
 			.attr('font-size','0.85em')
-			.attr('opacity', '0.6')
+			.attr('opacity', '0.7')
+	
+	textG.on("mouseover", function(){
+							d3.select(this)
+							.attr('opacity', '1')
+							.attr('font-weight', 'bold')
+							});
+	textG.on("mouseout", function(){
+							d3.select(this)
+							.attr('opacity', '0.7')
+							.attr('font-weight', 'normal')
+							});
+	
 	})
+	
+	
 }
 
 	window.onload = render();

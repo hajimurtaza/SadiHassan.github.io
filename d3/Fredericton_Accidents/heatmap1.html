@@ -101,12 +101,14 @@ function render(){
 		.data(data, function(d) { return d.month+':'+d.year;})
 		.enter()
 		.append('text')
-		.attr("x", function(d) { return x(d.month) + 10; })
-		.attr("y", function(d) { return y(d.year) + 30; })
+		.attr("x", function(d) { return x(d.month) + x.bandwidth()/2 - x.bandwidth()/4; })
+		.attr("y", function(d) { return y(d.year) + y.bandwidth()/2 + y.bandwidth()/6; })
 		.text(function(d) { 
 				if(d.total_accident - thresh < 0) return 0;
 				return (d.total_accident - thresh); }
 			)
+			.attr('font-size','0.85em')
+			.attr('opacity', '0.6')
 	})
 }
 

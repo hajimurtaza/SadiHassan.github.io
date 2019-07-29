@@ -24,12 +24,13 @@
 }
 
 </style>
-<div>Min number of accidents (min thresh)
+<div><h2>Fredericton Accident HeatMap (Year/Month)</h2>
+	Min number of accidents (min thresh)
 	<input type="text" name="acc_thresh1" id="acc_thresh" value="0"/>
 	<input type="button" onclick="render()" value="Go!" />
 </div>
-<div id="explanation">(You can change contrast of grid colors using threshold value. <br />
-For example, you can have a more vivid appearance of grids having more than 50 accidents by adding 50 in the text-box and so on.)</div>
+<div id="explanation">(You can change contrast of grid colors by changing threshold value above. <br />
+<strong>For example</strong>, you can have a more vivid appearance of grids that have more than <strong>50</strong> accidents by adding <strong>50</strong> in the text-box and so on.)</div>
 <div id="my_dataviz"></div>
 
 <script>
@@ -106,8 +107,6 @@ function render(){
 				if(d.total_accident - thresh < 0) return 0;
 				return (d.total_accident - thresh); }
 			)
-				
-
 	})
 }
 

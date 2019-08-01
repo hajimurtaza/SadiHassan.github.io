@@ -48,6 +48,7 @@ function draw()
 		//a random chinese character to print
 		var text = chinese[Math.floor(Math.random()*chinese.length)];
 		//x = i*font_size, y = value of drops[i]*font_size
+		font_size = Math.floor(Math.random() * 30);
 		ctx.fillText(text, i*font_size, drops[i]*font_size);
 		
 		//sending the drop back to the top randomly after it has crossed the screen

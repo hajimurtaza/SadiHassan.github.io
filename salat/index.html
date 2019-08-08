@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>salat</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+		body {
+			margin: 10%;
+		}
+		.box {
+		  background-color: #DDE1E6 ;
+		  color: #fff;
+		  border-radius: 0.2em;
+		  padding: 0.9em;
+		  font-size: 0.8em;
+		  height: 10%;
+		  
+		}
+		.wrapper {
+		  width: 60%;
+		  display: grid;
+		  grid-column-gap: 1%;
+		  grid-row-gap: 1%;
+		  grid-template-columns: repeat(5, 5%);
+		  grid-auto-flow: row;
+		}
+	</style>
+	</head>
+	
+	<body onclick="addSalat(event)">
+	<script>
+		function addSalat(e){
+			let color = e.target.style.background;
+			console.log('color: ' + color);
+			if(color == '')
+				color = 'rgb(129, 225, 120)';
+			else if(color == 'rgb(129, 225, 120)')
+				color = 'green';
+			else
+				color = '';
+			e.target.style.background = color;
+		}
+		
+		window.onload = function(){
+			let body = document.body;
+			
+			let root_div = document.createElement("div");
+			
+			root_div.classList.add("wrapper");	
+			console.log(root_div);
+			
+			for(let row = 0; row < 31; row++){
+				for(let col = 0; col < 5; col++){
+					let div = document.createElement("div");
+					div.classList.add("box");
+					root_div.appendChild(div);
+				}
+			}
+			
+			body.appendChild(root_div);
+		}
+	</script>
+		<!--
+		<div class="wrapper">
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		  <div class="box"></div>
+		</div>
+		-->
+	</body>
+</html>

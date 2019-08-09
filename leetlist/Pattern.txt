@@ -5,19 +5,18 @@ Who should take this course?
 Preview
 Course Overview
 Preview
-Pattern: Sliding Window
+
+ #Pattern: Sliding Window
 Introduction
 Preview
-Maximum Sum Subarray of Size K (easy)
-Preview
-Smallest Subarray with a given sum (easy)
-Preview
-Longest Substring with K Distinct Characters (medium)
-Preview
-Fruits into Baskets (medium)
-No-repeat Substring (hard)
-Longest Substring with Same Letters after Replacement (hard)
-Longest Subarray with Ones after Replacement (hard)
+
+ 1. Maximum Sum Subarray of Size K (easy)
+ 2. Smallest Subarray with a given sum (easy)
+ 3. Longest Substring with K Distinct Characters (medium)
+ 4. Fruits into Baskets (medium)
+ 5. No-repeat Substring (hard)
+ 6. Longest Substring with Same Letters after Replacement (hard)
+ 7. Longest Subarray with Ones after Replacement (hard)
 Problem Challenge 1
 Solution Review: Problem Challenge 1
 Problem Challenge 2
@@ -26,7 +25,8 @@ Problem Challenge 3
 Solution Review: Problem Challenge 3
 Problem Challenge 4
 Solution Review: Problem Challenge 4
-Pattern: Two Pointers
+
+ #Pattern: Two Pointers
 Introduction
 Pair with Target Sum (easy)
 Remove Duplicates (easy)
@@ -44,7 +44,8 @@ Problem Challenge 3
 Solution Review: Problem Challenge 3
 Problem Challenge 4
 Solution Review: Problem Challenge 4
-Pattern: Fast & Slow pointers
+
+# Pattern: Fast & Slow pointers
 Introduction
 LinkedList Cycle (easy)
 Start of LinkedList Cycle (medium)
@@ -56,7 +57,8 @@ Problem Challenge 2
 Solution Review: Problem Challenge 2
 Problem Challenge 3
 Solution Review: Problem Challenge 3
-Pattern: Merge Intervals
+
+# Pattern: Merge Intervals
 Introduction
 Preview
 Merge Intervals (medium)
@@ -72,7 +74,8 @@ Problem Challenge 2
 Solution Review: Problem Challenge 2
 Problem Challenge 3
 Solution Review: Problem Challenge 3
-Pattern: Cyclic Sort
+
+# Pattern: Cyclic Sort
 Introduction
 Cyclic Sort (easy)
 Find the Missing Number (easy)
@@ -85,7 +88,8 @@ Problem Challenge 2
 Solution Review: Problem Challenge 2
 Problem Challenge 3
 Solution Review: Problem Challenge 3
-Pattern: In-place Reversal of a LinkedList
+
+# Pattern: In-place Reversal of a LinkedList
 Introduction
 Reverse a LinkedList (easy)
 Reverse a Sub-list (medium)
@@ -94,7 +98,8 @@ Problem Challenge 1
 Solution Review: Problem Challenge 1
 Problem Challenge 2
 Solution Review: Problem Challenge 2
-Pattern: Tree Breadth First Search
+
+# Pattern: Tree Breadth First Search
 Introduction
 Binary Tree Level Order Traversal (easy)
 Reverse Level Order Traversal (easy)
@@ -109,7 +114,8 @@ Problem Challenge 2
 Solution Review: Problem Challenge 2
 Problem Challenge 3
 Solution Review: Problem Challenge 3
-Pattern: Tree Depth First Search
+
+# Pattern: Tree Depth First Search
 Introduction
 Binary Tree Path Sum (easy)
 All Paths for a Sum (medium)
@@ -120,14 +126,16 @@ Problem Challenge 1
 Solution Review: Problem Challenge 1
 Problem Challenge 2
 Solution Review: Problem Challenge 2
-Pattern: Two Heaps
+
+# Pattern: Two Heaps
 Introduction
 Find the Median of a Number Stream (medium)
 Sliding Window Median (hard)
 Maximize Capital (hard)
 Problem Challenge 1
 Solution Review: Problem Challenge 1
-Pattern: Subsets
+
+# Pattern: Subsets
 Introduction
 Preview
 Subsets (easy)
@@ -145,7 +153,8 @@ Problem Challenge 2
 Solution Review: Problem Challenge 2
 Problem Challenge 3
 Solution Review: Problem Challenge 3
-Pattern: Modified Binary Search
+
+# Pattern: Modified Binary Search
 Introduction
 Order-agnostic Binary Search (easy)
 Ceiling of a Number (medium)
@@ -160,7 +169,8 @@ Problem Challenge 2
 Solution Review: Problem Challenge 2
 Problem Challenge 3
 Solution Review: Problem Challenge 3
-Pattern: Top 'K' Elements
+
+# Pattern: Top 'K' Elements
 Introduction
 Top 'K' Numbers (easy)
 Kth Smallest Number (easy)
@@ -179,7 +189,8 @@ Problem Challenge 2
 Solution Review: Problem Challenge 2
 Problem Challenge 3
 Solution Review: Problem Challenge 3
-Pattern: K-way merge
+
+# Pattern: K-way merge
 Introduction
 Merge K Sorted Lists (medium)
 Kth Smallest Number in M Sorted Lists (Medium)
@@ -188,7 +199,8 @@ Preview
 Smallest Number Range (Hard)
 Problem Challenge 1
 Solution Review: Problem Challenge 1
-Pattern : 0/1 Knapsack (Dynamic Programming)
+
+# Pattern : 0/1 Knapsack (Dynamic Programming)
 Introduction
 0/1 Knapsack (medium)
 Equal Subset Sum Partition (medium)
@@ -198,7 +210,8 @@ Problem Challenge 1
 Solution Review: Problem Challenge 1
 Problem Challenge 2
 Solution Review: Problem Challenge 2
-Pattern: Topological Sort
+
+# Pattern: Topological Sort
 Introduction
 Topological Sort (medium)
 Tasks Scheduling (medium)

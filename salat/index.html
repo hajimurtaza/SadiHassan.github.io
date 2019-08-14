@@ -23,7 +23,7 @@
 		  display: grid;
 		  grid-column-gap: 1%;
 		  grid-row-gap: 0%;
-		  grid-template-columns: repeat(5, 5%);
+		  grid-template-columns: repeat(6, 5%);
 		  grid-auto-flow: row;
 		  overflow: scroll;
 		  scroll-behavior: smooth;
@@ -37,6 +37,7 @@
 		
 		let root_div = document.createElement("div");
 		let box_last_id = 0;
+		let top_max = 150;
 		function addSalat(id){
 			//console.log(document.getElementById(id));
 			
@@ -61,17 +62,28 @@
 			root_div.onscroll = function(){ scrollAction(); }
 			body.appendChild(root_div);
 			for(let row = 0; row < 15; row++){
+				
+				let date_div = document.createElement("div");
+				date_div.innerHTML = "Date";
+				root_div.appendChild(date_div);
+				
 				for(let col = 0; col < 5; col++){
+					
+
 					let div = document.createElement("div");
 					div.classList.add("box");
 					div.id = "" + (row * 5 + col);
 					box_last_id = (row * 5 + col);
 					div.innerHTML = "" + (row * 5 + col);
+					
 					root_div.appendChild(div);
+					
 					div.onclick = function(){
-												addSalat(div.id); //HOW div.id is accessible from inside function() scope?
-											};
+						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+					};
 				}
+
+
 			}
 			//console.log(document.documentElement.getBoundingClientRect());
 		}
@@ -93,7 +105,7 @@
 			}			
 		});
 		*/
-		scrollAction = function(){
+		let scrollAction = function(){
 			let root_div = document.getElementById('wrapper_id')
 			/*
 			console.log(root_div.getBoundingClientRect().top);
@@ -103,18 +115,30 @@
 			document.getElementById('40').innerHTML = pageYOffset + 'px';
 			*/
 			console.log(root_div.scrollTop);
+			
 			let new_row = 0;
-			if(root_div.scrollTop >= 30){
+			
+			if(root_div.scrollTop > top_max){
+				top_max = root_div.scrollTop;
 				for(let col = 0; col < 5; col++){
+					
+					
 					let div = document.createElement("div");
 					div.classList.add("box");
 					box_last_id++;
 					div.id = "" + box_last_id;
 					div.innerHTML = "" + box_last_id;
+
+					if(box_last_id % 5 == 0){
+						let date_div = document.createElement("div");
+						date_div.innerHTML = "Date";
+						root_div.appendChild(date_div);
+					}
 					root_div.appendChild(div);
 					div.onclick = function(){
-												addSalat(div.id); //HOW div.id is accessible from inside function() scope?
-											};
+						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+					};
+
 				new_row++;
 				if(new_row > 1) break;
 				}

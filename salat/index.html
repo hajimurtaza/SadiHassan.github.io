@@ -10,7 +10,7 @@
 		}
 		.box {
 		  background-color: #DDE1E6 ;
-		  color: #fff;
+		  color: #00f;
 		  border-radius: 0.2em;
 		  padding: 0.9em;
 		  font-size: 0.8em;
@@ -19,57 +19,107 @@
 		}
 		.wrapper {
 		  width: 60%;
+		  height: 600px; /* When I put height = 10%, scroll doesn't show-up. How to put height so that it will behave dynamically?*/
 		  display: grid;
 		  grid-column-gap: 1%;
-		  grid-row-gap: 1%;
+		  grid-row-gap: 0%;
 		  grid-template-columns: repeat(5, 5%);
 		  grid-auto-flow: row;
-		  /*overflow-y: scroll;
-		  scroll-behavior: smooth;*/
+		  overflow: scroll;
+		  scroll-behavior: smooth;
 		}
 	</style>
 	</head>
 	
-	<body onclick="addSalat(event)">
+	<body> <!-- onclick="addSalat(event)" -->
 	<div id="showScroll"></div>
 	<script>
 		
-		function addSalat(e){
-			let color = e.target.style.background;
-			console.log('color: ' + color);
-			if(color == '')
-				color = 'rgb(129, 225, 120)';
-			else if(color == 'rgb(129, 225, 120)')
-				color = 'green';
+		let root_div = document.createElement("div");
+		let box_last_id = 0;
+		function addSalat(id){
+			//console.log(document.getElementById(id));
+			
+			let background_color = document.getElementById(""+id).style.background;
+			console.log('color: ' + background_color);
+			//alert(color);
+			if(background_color == '')
+				background_color = 'rgb(129, 225, 120)';
+			else if(background_color == 'rgb(129, 225, 120)')
+				background_color = 'green';
 			else
-				color = '';
-			e.target.style.background = color;
+				background_color = '';
+			document.getElementById(id).style.background = background_color;
+			
 		}
 		
 		window.onload = function(){
 			let body = document.body;
 			
-			let root_div = document.createElement("div");
-			
-			root_div.classList.add("wrapper");	
-			console.log(root_div);
-			
-			for(let row = 0; row < 31; row++){
+			root_div.classList.add("wrapper");
+			root_div.id = "wrapper_id";
+			root_div.onscroll = function(){ scrollAction(); }
+			body.appendChild(root_div);
+			for(let row = 0; row < 15; row++){
 				for(let col = 0; col < 5; col++){
 					let div = document.createElement("div");
 					div.classList.add("box");
+					div.id = "" + (row * 5 + col);
+					box_last_id = (row * 5 + col);
+					div.innerHTML = "" + (row * 5 + col);
 					root_div.appendChild(div);
+					div.onclick = function(){
+												addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+											};
 				}
 			}
-			
-			body.appendChild(root_div);
-			
-			console.log(document.documentElement.getBoundingClientRect());
+			//console.log(document.documentElement.getBoundingClientRect());
 		}
-		
+		/*
 		window.addEventListener('scroll', function() {
-			document.getElementById('showScroll').innerHTML = pageYOffset + 'px';
+			document.getElementById('40').innerHTML = pageYOffset + 'px';
+			if(pageYOffset >= 0){
+				for(let col = 0; col < 5; col++){
+					let div = document.createElement("div");
+					div.classList.add("box");
+					box_last_id++;
+					div.id = "" + box_last_id;
+					div.innerHTML = "" + box_last_id;
+					root_div.appendChild(div);
+					div.onclick = function(){
+												addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+											};
+				}
+			}			
 		});
+		*/
+		scrollAction = function(){
+			let root_div = document.getElementById('wrapper_id')
+			/*
+			console.log(root_div.getBoundingClientRect().top);
+			console.log(root_div.getBoundingClientRect().bottom);
+			console.log(root_div.scrollTop);
+			console.log(root_div.scrollBottom);
+			document.getElementById('40').innerHTML = pageYOffset + 'px';
+			*/
+			console.log(root_div.scrollTop);
+			let new_row = 0;
+			if(root_div.scrollTop >= 30 && root_div.scrollTop%2 == 0){
+				for(let col = 0; col < 5; col++){
+					let div = document.createElement("div");
+					div.classList.add("box");
+					box_last_id++;
+					div.id = "" + box_last_id;
+					div.innerHTML = "" + box_last_id;
+					root_div.appendChild(div);
+					div.onclick = function(){
+												addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+											};
+				new_row++;
+				if(new_row > 1) break;
+				}
+			}
+		}
 		
 	</script>
 	<!--	

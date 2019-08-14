@@ -19,7 +19,7 @@
 		}
 		.wrapper {
 		  width: 60%;
-		  height: 600px; /* When I put height = 10%, scroll doesn't show-up. How to put height so that it will behave dynamically?*/
+		  height: 400px; /* When I put height = 10%, scroll doesn't show-up. How to put height so that it will behave dynamically?*/
 		  display: grid;
 		  grid-column-gap: 1%;
 		  grid-row-gap: 0%;
@@ -104,7 +104,7 @@
 			*/
 			console.log(root_div.scrollTop);
 			let new_row = 0;
-			if(root_div.scrollTop >= 30 && root_div.scrollTop%2 == 0){
+			if(root_div.scrollTop >= 30){
 				for(let col = 0; col < 5; col++){
 					let div = document.createElement("div");
 					div.classList.add("box");

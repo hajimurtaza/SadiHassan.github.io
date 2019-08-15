@@ -56,7 +56,9 @@
 		let root_div = document.createElement("div");
 		let box_last_id = 0;
 		let top_max = 150;
+		let top_min = 10000;
 		let date = new Date();
+		let date_backward = new Date();
 
 		function addSalat(id){
 			//console.log(document.getElementById(id));
@@ -91,13 +93,14 @@
 			return "InvalidDate";
 		}
 		window.onload = function(){
+			
 			let body = document.body;
 			
 			date.setDate( date.getDate() - 1 );
 
 			root_div.classList.add("wrapper");
 			root_div.id = "wrapper_id";
-			root_div.onscroll = function(){ scrollAction(); }
+			root_div.onscroll = function(){ setTimeout(scrollAction, 1000); }
 			body.appendChild(root_div);
 			for(let row = 0; row < 15; row++){
 				
@@ -126,6 +129,7 @@
 
 			}
 			//console.log(document.documentElement.getBoundingClientRect());
+			root_div.scrollTop = 50;
 		}
 		/*
 		window.addEventListener('scroll', function() {
@@ -161,8 +165,6 @@
 			if(root_div.scrollTop > top_max){
 				top_max = root_div.scrollTop;
 				for(let col = 0; col < 5; col++){
-					
-					
 					let div = document.createElement("div");
 					div.classList.add("box");
 					box_last_id++;
@@ -181,8 +183,36 @@
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
 					};
 
-				new_row++;
-				if(new_row > 1) break;
+				//new_row++;
+				//if(new_row > 1) break;
+				}
+			}
+			
+			else if(root_div.scrollTop < top_min && root_div.scrollTop < 10){
+				console.log(top_min);
+				top_min = root_div.scrollTop;
+				for(let col = 0; col < 5; col++){
+					let div = document.createElement("div");
+					div.classList.add("box");
+					box_last_id++;
+					div.id = "" + box_last_id;
+					div.innerHTML = "" + box_last_id;
+
+					if(box_last_id % 5 == 0){
+						let date_div = document.createElement("div");
+						date_backward.setDate( date_backward.getDate() + 1 )
+						date_div.id = "date";
+						date_div.innerHTML = getMonthEng(date_backward.getMonth()) + "/" + date_backward.getDate();
+						root_div.appendChild(date_div);
+					}
+					//root_div.appendChild(div);
+					document.body.insertBefore(div , root_div);
+					div.onclick = function(){
+						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+					};
+
+					new_row++;
+					if(new_row > 1) break;
 				}
 			}
 		}

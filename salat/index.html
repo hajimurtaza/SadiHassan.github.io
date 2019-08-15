@@ -28,6 +28,12 @@
 		  overflow: scroll;
 		  scroll-behavior: smooth;
 		}
+		#date{
+			margin-right: 50px;
+			color: #6F3910;
+			font-family: system-ui;
+			font-size: 0.8em;
+		}
 	</style>
 	</head>
 	
@@ -38,6 +44,8 @@
 		let root_div = document.createElement("div");
 		let box_last_id = 0;
 		let top_max = 150;
+		let date = new Date();
+
 		function addSalat(id){
 			//console.log(document.getElementById(id));
 			
@@ -54,9 +62,26 @@
 			
 		}
 		
+		function getMonthEng(d){
+			if(d == 1) return "Jan";
+			if(d == 2) return "Feb";
+			if(d == 3) return "Mar";
+			if(d == 4) return "Apr";
+			if(d == 5) return "May";
+			if(d == 6) return "Jun";
+			if(d == 7) return "Jul";
+			if(d == 8) return "Aug";
+			if(d == 9) return "Sep";
+			if(d == 10) return "Oct";
+			if(d == 11) return "Nov";
+			if(d == 0) return "Dec";
+			return "InvalidDate";
+		}
 		window.onload = function(){
 			let body = document.body;
 			
+			date.setDate( date.getDate() - 1 );
+
 			root_div.classList.add("wrapper");
 			root_div.id = "wrapper_id";
 			root_div.onscroll = function(){ scrollAction(); }
@@ -64,7 +89,9 @@
 			for(let row = 0; row < 15; row++){
 				
 				let date_div = document.createElement("div");
-				date_div.innerHTML = "Date";
+				date.setDate( date.getDate() + 1 )
+				date_div.innerHTML = getMonthEng(date.getMonth()) + "/" + date.getDate();
+				date_div.id = "date";
 				root_div.appendChild(date_div);
 				
 				for(let col = 0; col < 5; col++){
@@ -131,7 +158,9 @@
 
 					if(box_last_id % 5 == 0){
 						let date_div = document.createElement("div");
-						date_div.innerHTML = "Date";
+						date.setDate( date.getDate() + 1 )
+						date_div.id = "date";
+						date_div.innerHTML = getMonthEng(date.getMonth()) + "/" + date.getDate();
 						root_div.appendChild(date_div);
 					}
 					root_div.appendChild(div);

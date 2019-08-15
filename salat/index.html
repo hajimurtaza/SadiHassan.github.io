@@ -9,7 +9,7 @@
 			margin: 10%;
 		}
 		.box {
-		  background-color: #DDE1E6 ;
+		  background-color: #DDE1E6;
 		  color: #00f;
 		  border-radius: 0.2em;
 		  padding: 0.9em;
@@ -17,22 +17,34 @@
 		  height: 10%;
 		  
 		}
+		
+		.box:hover{
+		  background-color: #9DAEB5;	
+		}
+
+		.box:hover > #date {
+    		color: red;
+		}
+
 		.wrapper {
 		  width: 60%;
 		  height: 400px; /* When I put height = 10%, scroll doesn't show-up. How to put height so that it will behave dynamically?*/
 		  display: grid;
 		  grid-column-gap: 1%;
 		  grid-row-gap: 0%;
-		  grid-template-columns: repeat(6, 5%);
+		  /*grid-template-columns: repeat(6, 5%);*/
+		  grid-template-columns: 7% 5% 5% 5% 5% 5%;
 		  grid-auto-flow: row;
 		  overflow: scroll;
 		  scroll-behavior: smooth;
 		}
+
 		#date{
-			margin-right: 50px;
-			color: #6F3910;
-			font-family: system-ui;
+			margin-top: 10%;
+			color: #6C6B68;
+			font-family: sans-serif;
 			font-size: 0.8em;
+			font-weight: 400;
 		}
 	</style>
 	</head>
@@ -63,6 +75,7 @@
 		}
 		
 		function getMonthEng(d){
+			d += 1
 			if(d == 1) return "Jan";
 			if(d == 2) return "Feb";
 			if(d == 3) return "Mar";
@@ -74,7 +87,7 @@
 			if(d == 9) return "Sep";
 			if(d == 10) return "Oct";
 			if(d == 11) return "Nov";
-			if(d == 0) return "Dec";
+			if(d == 12) return "Dec";
 			return "InvalidDate";
 		}
 		window.onload = function(){

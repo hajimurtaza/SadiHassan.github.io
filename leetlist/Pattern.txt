@@ -222,7 +222,8 @@ Problem Challenge 1
 Solution Review: Problem Challenge 1
 Problem Challenge 2
 Solution Review: Problem Challenge 2
-Miscellaneous
+
+# Pattern: Miscellaneous
 Kth Smallest Number (hard)
 Conclusions
 Where to Go from Here

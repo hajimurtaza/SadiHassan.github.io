@@ -1,0 +1,101 @@
+//get size of file
+function readablizeBytes(bytes, lang) {
+  //create variable names
+  var abbr;
+  if (lang) {
+	  //array of file sizes
+	  var abbr = [  '<abbr title="Byte">bytes<abbr>', 
+					'<abbr title="Kilobyte">KB</abbr>', 
+					'<abbr title="Megabyte">MB</abbr>', 
+					'<abbr title="Gigabtye">GB</abbr>', 
+					'<abbr title="Terabyte">TB</abbr>', 
+					'<abbr title="Petabyte">PB</abbr>'
+				  ];
+  } else {
+	  var abbr = [  '<abbr title="Octet">octets<abbr>', 
+					'<abbr title="Kilo octet">Ko</abbr>', 
+					'<abbr title="M&eacute;ga octet">Mo</abbr>', 
+					'<abbr title="Giga octet">Go</abbr>', 
+					'<abbr title="T&eacute;ra octet">To</abbr>', 
+					'<abbr title="P&eacute;ta octet">Po</abbr>'
+				  ];
+  }
+  //assign the unit size
+  var size = Math.floor(Math.log(bytes)/Math.log(1024));
+  var fileSize = (bytes/Math.pow(1024, Math.floor(size))).toFixed(2) + "&nbsp;" + abbr[size];
+  if (!lang) fileSize = fileSize.replace('.', ',');
+
+  //return the file size 
+  if (size == "-Infinity") {return "failed";}
+  else {return fileSize;}
+
+  
+}
+
+//verify the last parenthesis in file name
+function verifyLastParenthesis(str, lang) {
+	//find the last opening parenthesis in file name and remove any html tags and replace &nbsp;'s
+	var last = str.split( '(' ).pop().replace(/<(?:.|\n)*?>/gm, '').replace(/&nbsp;/gm, ' ').trim();
+	//set the regex for what to match in a variable
+	var regex = /^([A-Za-z\d]{2,})\s*(\,+\s*)([\d]+)([.,]*)([\d]*)([\s]*)([A-Za-z]+)(\s*)([\)]+)$/;
+	//var regex = /^([A-Za-z\d]{2,})\s*(\,*\s*)([\d]+)([.,]*)([\d]*)([\s]*)([A-Za-z]+)(\s*)([\)]+)$/;
+	
+	//if the last parenthesis matches the regular expression
+	if ( regex.test( last ) ) {
+		//set the file name to remove everything after the last opening parenthesis
+		str = str.substring(0, str.lastIndexOf("("));
+	}
+	return str.trim();
+}
+
+//get file size ajax script
+function getfilesize(url,element,ext,lang) {
+	//call ajax
+	var xhr = $.ajax({
+			//set the request type
+			type: "HEAD",
+			//set the url of the page
+			url: url,
+			//if successful, rewrite (if exists) the new file title and size
+			success: function(msg){
+				//get the size of the file
+				fileSize = readablizeBytes(xhr.getResponseHeader('content-length'), lang);
+				if (fileSize != "failed") {
+				//sets the filename which verifies the last opening brace and saves in variable
+					var linkText = verifyLastParenthesis( element.html(), lang );
+					//adds space before opening parenthisis only if there is preceding content
+					if (linkText.length > 0) {
+  						linkText = linkText + (" ");
+					}
+				fileName = linkText + "(" + ext + ",&nbsp;" + fileSize + ")";
+				
+				//displays the replacement text i.e. ([extension], [filesize])
+				element.html ( fileName );
+				}
+			}
+	});
+}
+
+//for every listed href dot extension on page.. i.e. .pdf, .doc, .ebup etc. 
+$('a[href$=".pdf"], a[href$=".PDF"], a[href$=".doc"], a[href$=".DOC"], a[href$=".docx"], a[href$=".DOCX"], a[href$=".xls"], a[href$=".XLS"], a[href$=".xlsx"], a[href$=".XLSX"], a[href$=".ppt"], a[href$=".PPT"], a[href$=".pptx"], a[href$=".PPTX"], a[href$=".wmv"], a[href$=".WMV"], a[href$=".mov"], a[href$=".MOV"], a[href$=".fla"], a[href$=".FLA"], a[href$=".flv"], a[href$=".FLV"], a[href$=".swf"], a[href$=".SWF"], a[href$=".mp4"], a[href$=".MP4"], a[href$=".mp3"], a[href$=".MP3"], a[href$=".wma"], a[href$=".WMA"], a[href$=".epub"], a[href$=".EPUB"]').each(function(){	
+			//set the link of the file
+            link = $(this).attr('href');
+			//set the extension and make it uppercase
+			ext = link.split('.').pop().toUpperCase();
+			//set language header to a variable
+			lang = document.documentElement.lang === 'en';
+			//set the abbreviation for each file extension based on the language
+			if (ext=='PDF') lang ? ext = '<abbr title="Portable Document Format">PDF</abbr>' : ext = '<abbr title="Format de document portable">PDF</abbr>';
+			else if (ext=='DOC' || ext=='DOCX') lang ? ext = '<abbr title="Word Document">DOC</abbr>' : ext = '<abbr title="Document Word">DOC</abbr>';
+			else if (ext=='XLS' || ext=='XLSX') lang ? ext = '<abbr title="Excel File">XLS</abbr>' : ext = '<abbr title="Fichier Excel">XLS</abbr>';
+			else if (ext=='PPT' || ext=='PPTX') lang ? ext = '<abbr title="Powerpoint Presentation">PPT</abbr>' : ext = '<abbr title="Pr&eacute;sentation Powerpoint">PPT</abbr>';
+			else if (ext=='WMV') lang ? ext = '<abbr title="Video File">WMV</abbr>' : ext = '<abbr title="Fichier vid&eacute;o"">WMV</abbr>';
+			else if (ext=='MP4') lang ? ext = '<abbr title="Video File">MP4</abbr>' : ext = '<abbr title="Fichier vid&eacute;o"">MP4</abbr>';
+			else if (ext=='MOV') lang ? ext = '<abbr title="Quicktime Video">MOV</abbr>' : ext = '<abbr title="Quicktime vid&eacute;o"">MOV</abbr>';
+			else if (ext=='FLA' || ext=='FLV' || ext=='SWF') lang ? ext = '<abbr title="Flash Video">FLV</abbr>' : ext = '<abbr title="Flash vid&eacute;o">FLV</abbr>';
+			else if (ext=='EPUB') lang ? ext = '<abbr title="Electonic Publication">EPUB</abbr>' : ext = '<abbr title="Publication &eacute;lectronique">EPUB</abbr>';
+			else if (ext=='MP3') lang ? ext = '<abbr title="Audio File">MP3</abbr>' : ext = '<abbr title="Fichier Audio">MP3</abbr>';
+			else if (ext=='WMA') lang ? ext = '<abbr title="Audio File">WMA</abbr>' : ext = '<abbr title="Fichier Audio">WMA</abbr>';
+			//get the filesize
+			getfilesize(link,$(this),ext,lang);
+});

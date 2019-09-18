@@ -2,10 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 from pathlib import Path, PureWindowsPath
 import requests
 import sys
+
+from pywebcopy import save_webpage
+
 #import wget
 driver = webdriver.Firefox()
 driver.get("https://leetcode.com/problemset/all/")
@@ -22,7 +26,7 @@ print('problem_id: ', problem_id.text)
 print('problem_name: ', problem_name.text)
 print('problem_link: ', problem_link_txt)
 
-problem_link.click()
+#problem_link.click()
 driver.implicitly_wait(40)
 
 #result = requests.get(problem_link_txt, verify=False)
@@ -42,13 +46,13 @@ print('path_on_windows: ', path_on_windows)
 driver2 = webdriver.Firefox()
 driver2.get(problem_link_txt)
 
+'''
 r = requests.get("https://leetcode.com/problems/two-sum/", verify=False)
 with open(path_on_windows, 'wb') as f:
 	f.write(r.content) #driver.page_source
-	#wget.download(problem_link_txt,out=f)
-	#page = driver2.page_source	
-	#print('page : ', page)
-	#print(typeof(page))
+'''
+save_me = ActionChains(driver2).key_down(Keys.CONTROL).key_down('s').key_up(Keys.CONTROL).key_up('s')
+save_me.perform()
 input("Press any key to exit...")
 driver.close()	
 

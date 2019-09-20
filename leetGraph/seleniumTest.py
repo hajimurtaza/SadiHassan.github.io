@@ -8,7 +8,7 @@ from pathlib import Path, PureWindowsPath
 import requests
 import sys
 
-from pywebcopy import save_webpage
+#from pywebcopy import save_webpage
 
 #import wget
 driver = webdriver.Firefox()
@@ -37,7 +37,7 @@ driver.implicitly_wait(40)
 #problem_body = driver.find_element_by_xpath('//*[contains(text(), "question-picker-detail")]')
 #print('problem_body: ', problem_body.text)
 
-data_folder = Path("C:/Users/MH9130/Downloads/test/")
+data_folder = Path("C:/Users/MH9130/Sadi/AkhtarVai/SadiHassan.github.io/leetGraph/temp/")
 file_to_open = data_folder / 'test.html'
 path_on_windows = PureWindowsPath(file_to_open)
 

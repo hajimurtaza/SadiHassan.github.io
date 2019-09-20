@@ -12,10 +12,11 @@
 		  background-color: #DDE1E6;
 		  color: #00f;
 		  border-radius: 0.2em;
-		  padding: 0.9em;
+		  padding: 0em;
+		  margin-bottom: 25%;
 		  font-size: 0.8em;
-		  height: 10%;
-		  
+		  height: 1em;
+		  width: 1em;
 		}
 		
 		.box:hover{
@@ -95,29 +96,24 @@
 		window.onload = function(){
 			
 			let body = document.body;
-			
 			date.setDate( date.getDate() - 1 );
-
 			root_div.classList.add("wrapper");
 			root_div.id = "wrapper_id";
-			root_div.onscroll = function(){ setTimeout(scrollAction, 1000); }
+			root_div.onscroll = function(){ setTimeout(scrollAction, 500); }
 			body.appendChild(root_div);
-			for(let row = 0; row < 15; row++){
-				
+			for(let row = 0; row < 15; row++){ //Initially amximum 15 rows are visible before scrolling
 				let date_div = document.createElement("div");
 				date.setDate( date.getDate() + 1 )
 				date_div.innerHTML = getMonthEng(date.getMonth()) + "/" + date.getDate();
 				date_div.id = "date";
 				root_div.appendChild(date_div);
 				
-				for(let col = 0; col < 5; col++){
-					
-
+				for(let col = 0; col < 5; col++){ // column for 5 times pray
 					let div = document.createElement("div");
 					div.classList.add("box");
 					div.id = "" + (row * 5 + col);
 					box_last_id = (row * 5 + col);
-					div.innerHTML = "" + (row * 5 + col);
+					div.innerHTML = ""; // + (row * 5 + col);
 					
 					root_div.appendChild(div);
 					
@@ -187,7 +183,7 @@
 				//if(new_row > 1) break;
 				}
 			}
-			
+			/*
 			else if(root_div.scrollTop < top_min && root_div.scrollTop < 10){
 				console.log(top_min);
 				top_min = root_div.scrollTop;
@@ -212,9 +208,10 @@
 					};
 
 					new_row++;
-					if(new_row > 1) break;
+					//if(new_row > 1) break;
 				}
 			}
+			*/
 		}
 		
 	</script>

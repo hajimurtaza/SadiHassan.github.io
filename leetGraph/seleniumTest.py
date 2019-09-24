@@ -11,66 +11,66 @@ import sys
 #from pywebcopy import save_webpage
 
 #import wget
+
+def get_problem_name_from_html(str):
+	ans = "";
+	cat_start = False;
+	for i in range(0, len(str)):
+		if cat_start and str[i] == '<':
+			break;
+		if str[i] == '>':
+			cat_start = True
+			continue
+		if cat_start:
+			ans += str[i]
+	return ans
+
 driver = webdriver.Firefox()
 driver.get("https://leetcode.com/problemset/all/")
 driver.implicitly_wait(20)
 
-problem_link = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]/div/a')
+f = open('C:\\Users\MH9130\Sadi\AkhtarVai\SadiHassan.github.io\leetGraph\out.txt', 'w')
 
+for i in range(1,1000):
+	print(str(i) + ' =========================>')
+	problem_link = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(i) +']/td[3]/div/a')
+	problem_name = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(i) +']/td[3]')
+	problem_id = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(i) +']/td[2]')
 
-problem_name = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]')
-problem_id = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[2]')
+	problem_link_txt = problem_link.get_attribute('href')
+	print('problem_id: ', problem_id.text)
+	print('problem_name: ', problem_name.text)
+	print('problem_link: ', problem_link_txt)
+	
+	f.write(problem_id.text);
+	f.write("-");
+	f.write(problem_name.text);
+	
+	problem_link.click()
+	driver.implicitly_wait(25)
 
-problem_link_txt = problem_link.get_attribute('href')
-print('problem_id: ', problem_id.text)
-print('problem_name: ', problem_name.text)
-print('problem_link: ', problem_link_txt)
+	similar_problems = driver.find_elements_by_class_name('question__25Pw')
 
-#problem_link.click()
-driver.implicitly_wait(40)
+	#print('similar_problems ==> ', similar_problems)
+	#print('similar_problems ==> ', type(similar_problems))
 
-#result = requests.get(problem_link_txt, verify=False)
-#page = result.text
-#print('page: ', page)
-#problem_body = driver.find_element_by_xpath('/html/body/div[4]/div[2]')
-
-#problem_body = driver.find_element_by_xpath('//*[contains(text(), "question-picker-detail")]')
-#print('problem_body: ', problem_body.text)
-
-data_folder = Path("C:/Users/MH9130/Sadi/AkhtarVai/SadiHassan.github.io/leetGraph/temp/")
-file_to_open = data_folder / 'test.html'
-path_on_windows = PureWindowsPath(file_to_open)
-
-print('path_on_windows: ', path_on_windows)
-
-driver2 = webdriver.Firefox()
-driver2.get(problem_link_txt)
-
-'''
-r = requests.get("https://leetcode.com/problems/two-sum/", verify=False)
-with open(path_on_windows, 'wb') as f:
-	f.write(r.content) #driver.page_source
-'''
-save_me = ActionChains(driver2).key_down(Keys.CONTROL).key_down('s').key_up(Keys.CONTROL).key_up('s')
-save_me.perform()
+	for problem in similar_problems:
+		f.write(",")
+		print(problem.get_attribute('innerHTML'))
+		f.write( get_problem_name_from_html(problem.get_attribute('innerHTML')))
+	
+	f.write("\n")	
+	driver.back()
+	driver.implicitly_wait(25)
+	
+	
 input("Press any key to exit...")
+f.close();
 driver.close()	
 
-
 '''
-#//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]/div/a
-try:
-	problem_name = WebDriverWait(driver, 100).until(
-        #EC.presence_of_element_located((By.ID, "myDynamicElement"))
-		EC.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]')
-		#print(problem_name)
-    )
-finally:
-	problem_link.click()
-	print(problem_name)
-	input("Press any key to exit...")
-	driver.close()	
+/html/body/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div/div[2]/div/div[7]/div[2]
+
+/html/body/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div/div[2]/div/div[7]/div[2]/div[1]
+/html/body/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div/div[2]/div/div[7]/div[2]/div[2]
 '''
-#input("Press any key to exit...")
-
-

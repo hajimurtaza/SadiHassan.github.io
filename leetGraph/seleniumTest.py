@@ -26,12 +26,14 @@ def get_problem_name_from_html(str):
 	return ans
 
 driver = webdriver.Firefox()
-driver.get("https://leetcode.com/problemset/all/")
-driver.implicitly_wait(20)
+
 
 f = open('C:\\Users\MH9130\Sadi\AkhtarVai\SadiHassan.github.io\leetGraph\out.txt', 'w')
 
 for i in range(1,1000):
+	driver.get("https://leetcode.com/problemset/all/#page-" + str( 1 + int(i/50)))
+	driver.implicitly_wait(20)	
+	
 	print(str(i) + ' =========================>')
 	problem_link = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(i) +']/td[3]/div/a')
 	problem_name = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(i) +']/td[3]')
@@ -48,7 +50,11 @@ for i in range(1,1000):
 	
 	problem_link.click()
 	driver.implicitly_wait(25)
-
+	'''
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[1]
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[2]
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[3]
+	'''
 	similar_problems = driver.find_elements_by_class_name('question__25Pw')
 
 	#print('similar_problems ==> ', similar_problems)
@@ -60,8 +66,8 @@ for i in range(1,1000):
 		f.write( get_problem_name_from_html(problem.get_attribute('innerHTML')))
 	
 	f.write("\n")	
-	driver.back()
-	driver.implicitly_wait(25)
+	#driver.back()
+	#driver.implicitly_wait(25)
 	
 	
 input("Press any key to exit...")

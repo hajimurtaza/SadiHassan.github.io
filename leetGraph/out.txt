@@ -1,0 +1,50 @@
+1-Two Sum    ,3Sum,4Sum,Two Sum II - Input array is sorted,Two Sum III - Data structure design,Subarray Sum Equals K,Two Sum IV - Input is a BST,Two Sum Less Than K
+2-Add Two Numbers    ,Multiply Strings,Add Binary,Sum of Two Integers,Add Strings,Add Two Numbers II,Add to Array-Form of Integer
+3-Longest Substring Without Repeating Characters    ,Longest Substring with At Most Two Distinct Characters,Longest Substring with At Most K Distinct Characters,Subarrays with K Different Integers
+4-Median of Two Sorted Arrays    
+5-Longest Palindromic Substring    ,Shortest Palindrome,Palindrome Permutation,Palindrome Pairs,Longest Palindromic Subsequence,Palindromic Substrings
+6-ZigZag Conversion    
+7-Reverse Integer    ,String to Integer (atoi),Reverse Bits
+8-String to Integer (atoi)    ,Reverse Integer,Valid Number
+9-Palindrome Number    ,Palindrome Linked List
+10-Regular Expression Matching    ,Wildcard Matching
+11-Container With Most Water    ,Trapping Rain Water
+12-Integer to Roman    ,Roman to Integer,Integer to English Words
+13-Roman to Integer    ,Integer to Roman
+14-Longest Common Prefix    
+15-3Sum    ,Two Sum,3Sum Closest,4Sum,3Sum Smaller
+16-3Sum Closest    ,3Sum,3Sum Smaller
+17-Letter Combinations of a Phone Number    ,Generate Parentheses,Combination Sum,Binary Watch
+18-4Sum    ,Two Sum,3Sum,4Sum II
+19-Remove Nth Node From End of List    
+20-Valid Parentheses    ,Generate Parentheses,Longest Valid Parentheses,Remove Invalid Parentheses,Check If Word Is Valid After Substitutions
+21-Merge Two Sorted Lists    ,Merge k Sorted Lists,Merge Sorted Array,Sort List,Shortest Word Distance II
+22-Generate Parentheses    ,Letter Combinations of a Phone Number,Valid Parentheses
+23-Merge k Sorted Lists    ,Merge Two Sorted Lists,Ugly Number II
+24-Swap Nodes in Pairs    ,Reverse Nodes in k-Group
+25-Reverse Nodes in k-Group    ,Swap Nodes in Pairs
+26-Remove Duplicates from Sorted Array    ,Remove Element,Remove Duplicates from Sorted Array II
+27-Remove Element    ,Remove Duplicates from Sorted Array,Remove Linked List Elements,Move Zeroes
+28-Implement strStr()    ,Shortest Palindrome,Repeated Substring Pattern
+29-Divide Two Integers    
+30-Substring with Concatenation of All Words    ,Minimum Window Substring
+31-Next Permutation    ,Permutations,Permutations II,Permutation Sequence,Palindrome Permutation II
+32-Longest Valid Parentheses    ,Valid Parentheses
+33-Search in Rotated Sorted Array    ,Search in Rotated Sorted Array II,Find Minimum in Rotated Sorted Array
+34-Find First and Last Position of Element in Sorted Array    ,First Bad Version
+35-Search Insert Position    ,First Bad Version
+36-Valid Sudoku    ,Sudoku Solver
+37-Sudoku Solver    ,Valid Sudoku,Unique Paths III
+38-Count and Say    ,Encode and Decode Strings,String Compression
+39-Combination Sum    ,Letter Combinations of a Phone Number,Combination Sum II,Combinations,Combination Sum III,Factor Combinations,Combination Sum IV
+40-Combination Sum II    ,Combination Sum
+41-First Missing Positive    ,Missing Number,Find the Duplicate Number,Find All Numbers Disappeared in an Array,Couples Holding Hands
+42-Trapping Rain Water    ,Container With Most Water,Product of Array Except Self,Trapping Rain Water II,Pour Water
+43-Multiply Strings    ,Add Two Numbers,Plus One,Add Binary,Add Strings
+44-Wildcard Matching    ,Regular Expression Matching
+45-Jump Game II    ,Jump Game
+46-Permutations    ,Next Permutation,Permutations II,Permutation Sequence,Combinations
+47-Permutations II    ,Next Permutation,Permutations,Palindrome Permutation II,Number of Squareful Arrays
+48-Rotate Image    
+49-Group Anagrams    ,Valid Anagram,Group Shifted Strings
+50-Pow(x, n)    ,Sqrt(x),Super Pow

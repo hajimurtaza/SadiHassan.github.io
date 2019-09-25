@@ -21,7 +21,7 @@
 21-Merge Two Sorted Lists    ,Merge k Sorted Lists,Merge Sorted Array,Sort List,Shortest Word Distance II
 22-Generate Parentheses    ,Letter Combinations of a Phone Number,Valid Parentheses
 23-Merge k Sorted Lists    ,Merge Two Sorted Lists,Ugly Number II
-24-Swap Nodes in Pairs    ,Reverse Nodes in k-Group
+24-Swap Nodes in Pairs    
 25-Reverse Nodes in k-Group    ,Swap Nodes in Pairs
 26-Remove Duplicates from Sorted Array    ,Remove Element,Remove Duplicates from Sorted Array II
 27-Remove Element    ,Remove Duplicates from Sorted Array,Remove Linked List Elements,Move Zeroes
@@ -47,4 +47,73 @@
 47-Permutations II    ,Next Permutation,Permutations,Palindrome Permutation II,Number of Squareful Arrays
 48-Rotate Image    
 49-Group Anagrams    ,Valid Anagram,Group Shifted Strings
-50-Pow(x, n)    ,Sqrt(x),Super Pow
+51-N-Queens    ,N-Queens II,Grid Illumination
+1-Two Sum    ,3Sum,4Sum,Two Sum II - Input array is sorted,Two Sum III - Data structure design,Subarray Sum Equals K,Two Sum IV - Input is a BST,Two Sum Less Than K
+52-N-Queens II    ,N-Queens
+3-Longest Substring Without Repeating Characters    ,Longest Substring with At Most Two Distinct Characters,Longest Substring with At Most K Distinct Characters,Subarrays with K Different Integers
+54-Spiral Matrix    ,Spiral Matrix II
+5-Longest Palindromic Substring    ,Shortest Palindrome,Palindrome Permutation,Palindrome Pairs,Longest Palindromic Subsequence,Palindromic Substrings
+56-Merge Intervals    ,Insert Interval,Meeting Rooms,Meeting Rooms II,Teemo Attacking,Add Bold Tag in String,Range Module,Employee Free Time,Partition Labels,Interval List Intersections
+7-Reverse Integer    ,String to Integer (atoi),Reverse Bits
+58-Length of Last Word    
+9-Palindrome Number    ,Palindrome Linked List
+60-Permutation Sequence    ,Next Permutation,Permutations
+11-Container With Most Water    ,Trapping Rain Water
+62-Unique Paths    ,Unique Paths II,Minimum Path Sum,Dungeon Game
+13-Roman to Integer    ,Integer to Roman
+64-Minimum Path Sum    ,Unique Paths,Dungeon Game,Cherry Pickup
+15-3Sum    ,Two Sum,3Sum Closest,4Sum,3Sum Smaller
+66-Plus One    ,Multiply Strings,Add Binary,Plus One Linked List,Add to Array-Form of Integer
+17-Letter Combinations of a Phone Number    ,Generate Parentheses,Combination Sum,Binary Watch
+68-Text Justification    
+19-Remove Nth Node From End of List    
+70-Climbing Stairs    ,Min Cost Climbing Stairs,Fibonacci Number,N-th Tribonacci Number
+21-Merge Two Sorted Lists    ,Merge k Sorted Lists,Merge Sorted Array,Sort List,Shortest Word Distance II
+72-Edit Distance    ,One Edit Distance,Delete Operation for Two Strings,Minimum ASCII Delete Sum for Two Strings,Uncrossed Lines
+23-Merge k Sorted Lists    ,Merge Two Sorted Lists,Ugly Number II
+74-Search a 2D Matrix    ,Search a 2D Matrix II
+25-Reverse Nodes in k-Group    ,Swap Nodes in Pairs
+76-Minimum Window Substring    ,Substring with Concatenation of All Words,Minimum Size Subarray Sum,Sliding Window Maximum,Permutation in String,Smallest Range Covering Elements from K Lists,Minimum Window Subsequence
+27-Remove Element    ,Remove Duplicates from Sorted Array,Remove Linked List Elements,Move Zeroes
+78-Subsets    ,Subsets II,Generalized Abbreviation,Letter Case Permutation
+29-Divide Two Integers    
+80-Remove Duplicates from Sorted Array II    ,Remove Duplicates from Sorted Array
+31-Next Permutation    ,Permutations,Permutations II,Permutation Sequence,Palindrome Permutation II
+82-Remove Duplicates from Sorted List II    ,Remove Duplicates from Sorted List
+33-Search in Rotated Sorted Array    ,Search in Rotated Sorted Array II,Find Minimum in Rotated Sorted Array
+84-Largest Rectangle in Histogram    ,Maximal Rectangle
+35-Search Insert Position    ,First Bad Version
+86-Partition List    
+37-Sudoku Solver    ,Valid Sudoku,Unique Paths III
+88-Merge Sorted Array    ,Merge Two Sorted Lists,Squares of a Sorted Array,Interval List Intersections
+39-Combination Sum    ,Letter Combinations of a Phone Number,Combination Sum II,Combinations,Combination Sum III,Factor Combinations,Combination Sum IV
+90-Subsets II    ,Subsets
+41-First Missing Positive    ,Missing Number,Find the Duplicate Number,Find All Numbers Disappeared in an Array,Couples Holding Hands
+92-Reverse Linked List II    ,Reverse Linked List
+43-Multiply Strings    ,Add Two Numbers,Plus One,Add Binary,Add Strings
+94-Binary Tree Inorder Traversal    ,Validate Binary Search Tree,Binary Tree Preorder Traversal,Binary Tree Postorder Traversal,Binary Search Tree Iterator,Kth Smallest Element in a BST,Closest Binary Search Tree Value II,Inorder Successor in BST,Convert Binary Search Tree to Sorted Doubly Linked List,Minimum Distance Between BST Nodes
+45-Jump Game II    ,Jump Game
+96-Unique Binary Search Trees    ,Unique Binary Search Trees II
+47-Permutations II    ,Next Permutation,Permutations,Palindrome Permutation II,Number of Squareful Arrays
+98-Validate Binary Search Tree    ,Binary Tree Inorder Traversal,Find Mode in Binary Search Tree
+49-Group Anagrams    ,Valid Anagram,Group Shifted Strings
+101-Symmetric Tree    
+51-N-Queens    ,N-Queens II,Grid Illumination
+52-N-Queens II    ,N-Queens
+53-Maximum Subarray    ,Best Time to Buy and Sell Stock,Maximum Product Subarray,Degree of an Array,Longest Turbulent Subarray
+54-Spiral Matrix    ,Spiral Matrix II
+55-Jump Game    ,Jump Game II
+56-Merge Intervals    ,Insert Interval,Meeting Rooms,Meeting Rooms II,Teemo Attacking,Add Bold Tag in String,Range Module,Employee Free Time,Partition Labels,Interval List Intersections
+57-Insert Interval    ,Merge Intervals,Range Module
+58-Length of Last Word    
+59-Spiral Matrix II    ,Spiral Matrix
+60-Permutation Sequence    ,Next Permutation,Permutations
+61-Rotate List    ,Rotate Array,Split Linked List in Parts
+62-Unique Paths    ,Unique Paths II,Minimum Path Sum,Dungeon Game
+63-Unique Paths II    ,Unique Paths,Unique Paths III
+64-Minimum Path Sum    ,Unique Paths,Dungeon Game,Cherry Pickup
+65-Valid Number    ,String to Integer (atoi)
+66-Plus One    ,Multiply Strings,Add Binary,Plus One Linked List,Add to Array-Form of Integer
+67-Add Binary    ,Add Two Numbers,Multiply Strings,Plus One,Add to Array-Form of Integer
+68-Text Justification    
+69-Sqrt(x)    ,Pow(x, n),Valid Perfect Square

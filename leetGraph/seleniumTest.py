@@ -7,70 +7,143 @@ from selenium.webdriver.common.action_chains import ActionChains
 from pathlib import Path, PureWindowsPath
 import requests
 import sys
-
+from datetime import datetime
+import time
 #from pywebcopy import save_webpage
 
 #import wget
+#<a class="title__1kvt" href="/problems/powx-n/">Pow(x, n)</a><div class="difficulty__ES5S">Medium</div>
+def get_problem_difficulty_from_html(str):
+	ans = ""
+	i = len(str) - 1
+	cat_start = False;
+	while i >= 0:
+		if cat_start and str[i] == '>':
+			break;
+		if(str[i] == '<'):
+			cat_start = True;
+			i -= 1
+			continue
+		if cat_start:
+			ans += str[i]	
+		i -= 1
+	return ans[::-1]
+	
+	
+def get_problem_name_from_html(str):
+	ans = "";
+	cat_start = False;
+	for i in range(0, len(str)):
+		if cat_start and str[i] == '<':
+			break;
+		if str[i] == '>':
+			cat_start = True
+			continue
+		if cat_start:
+			ans += str[i]
+	return ans
+
+def get_problem_link_from_html(str):
+	ans = ""
+	begin_ind = str.find("href")
+	cat_start = False;
+	for i in range(begin_ind, len(str)):
+		if cat_start and str[i] == '>':
+			break;
+		if str[i] == '=':
+			cat_start = True;
+			continue
+		if cat_start:
+			ans += str[i]
+	return ans[1:len(ans)-2]
+
+start = time.time()
+	
 driver = webdriver.Firefox()
 driver.get("https://leetcode.com/problemset/all/")
-driver.implicitly_wait(20)
+driver.implicitly_wait(25)
+now = datetime.now()
+timestamp = datetime.timestamp(now)
+f = open('C:\\Users\MH9130\Sadi\AkhtarVai\SadiHassan.github.io\leetGraph\out_' + str(timestamp) + '.csv', 'w')
 
-problem_link = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]/div/a')
+#page_link = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[2]')
+#page_link.click();
+#exit(0);
 
+for i in range(1, 1205):
+	if i == 1205:
+		break
+	#driver.get("https://leetcode.com/problemset/all/#page-" + str( 1 + int(i/50)))
+	#driver.implicitly_wait(20)	
+	page_ind = int(i/50)
+	page_link = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[' + str(1 + page_ind) + ']')
+	page_link.click();
+	driver.implicitly_wait(25)
+	print(str(i) + ' =========================>')
+	id = i % 50
+	if id == 0:
+		id = 1
+	problem_link = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(id) +']/td[3]/div/a')
+	problem_name = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(id) +']/td[3]')
+	problem_id = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(id) +']/td[2]')
 
-problem_name = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]')
-problem_id = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[2]')
+	problem_link_txt = problem_link.get_attribute('href')
+	print('problem_id: ', problem_id.text)
+	print('problem_name: ', problem_name.text)
+	print('problem_link: ', problem_link_txt)
+	
+	f.write(problem_id.text);
+	f.write("#");
+	f.write(problem_name.text.strip());
+	
+	problem_link.click()
+	driver.implicitly_wait(25)
+	'''
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[1]
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[2]
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[3]
+	
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[1]
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[2]
+	'''
+	similar_problems = driver.find_elements_by_class_name('question__25Pw')
 
-problem_link_txt = problem_link.get_attribute('href')
-print('problem_id: ', problem_id.text)
-print('problem_name: ', problem_name.text)
-print('problem_link: ', problem_link_txt)
+	#print('similar_problems ==> ', similar_problems)
+	#print('similar_problems ==> ', type(similar_problems))
 
-#problem_link.click()
-driver.implicitly_wait(40)
+	for problem in similar_problems:
+		f.write(",")
+		print(problem.get_attribute('innerHTML'))
+		problem_html = problem.get_attribute('innerHTML')
+		
+		prob_name = get_problem_name_from_html(problem_html)
+		prob_link = get_problem_link_from_html(problem_html)	
+		prob_difficulty = get_problem_difficulty_from_html(problem_html)
+		
+		print('prob_name: ', prob_name)
+		print('prob_link: ', prob_link)
+		print('prob_difficulty: ', prob_difficulty)
+		f.write( prob_name )
+		f.write( '#' )
+		f.write( prob_link )
+		f.write( '#' )
+		f.write( prob_difficulty )
+		
+	f.write("\n")	
+	driver.back()
+	driver.implicitly_wait(25)
 
-#result = requests.get(problem_link_txt, verify=False)
-#page = result.text
-#print('page: ', page)
-#problem_body = driver.find_element_by_xpath('/html/body/div[4]/div[2]')
-
-#problem_body = driver.find_element_by_xpath('//*[contains(text(), "question-picker-detail")]')
-#print('problem_body: ', problem_body.text)
-
-data_folder = Path("C:/Users/MH9130/Sadi/AkhtarVai/SadiHassan.github.io/leetGraph/temp/")
-file_to_open = data_folder / 'test.html'
-path_on_windows = PureWindowsPath(file_to_open)
-
-print('path_on_windows: ', path_on_windows)
-
-driver2 = webdriver.Firefox()
-driver2.get(problem_link_txt)
-
-'''
-r = requests.get("https://leetcode.com/problems/two-sum/", verify=False)
-with open(path_on_windows, 'wb') as f:
-	f.write(r.content) #driver.page_source
-'''
-save_me = ActionChains(driver2).key_down(Keys.CONTROL).key_down('s').key_up(Keys.CONTROL).key_up('s')
-save_me.perform()
-input("Press any key to exit...")
+f.close();
 driver.close()	
 
+end = time.time()
+print("Execution Time: ", str(end - start))
+
+input("Press any key to exit...")
 
 '''
-#//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]/div/a
-try:
-	problem_name = WebDriverWait(driver, 100).until(
-        #EC.presence_of_element_located((By.ID, "myDynamicElement"))
-		EC.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[1]/td[3]')
-		#print(problem_name)
-    )
-finally:
-	problem_link.click()
-	print(problem_name)
-	input("Press any key to exit...")
-	driver.close()	
+/html/body/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div/div[2]/div/div[7]/div[2]
+
+/html/body/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div/div[2]/div/div[7]/div[2]/div[1]
+/html/body/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div[1]/div/div[2]/div/div[7]/div[2]/div[2]
 '''
-#input("Press any key to exit...")
-
-

@@ -86,7 +86,7 @@ for i in range(1, 1205):
 	problem_link = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(id) +']/td[3]/div/a')
 	problem_name = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(id) +']/td[3]')
 	problem_id = driver.find_element_by_xpath('//*[@id="question-app"]/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[' + str(id) +']/td[2]')
-
+	#problem_id_html 
 	problem_link_txt = problem_link.get_attribute('href')
 	print('problem_id: ', problem_id.text)
 	print('problem_name: ', problem_name.text)
@@ -99,6 +99,7 @@ for i in range(1, 1205):
 	problem_link.click()
 	driver.implicitly_wait(25)
 	'''
+	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[1]/tr[50]/td[2]
 	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[1]
 	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[2]
 	/html/body/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/div[2]/table/tbody[2]/tr/td/span[2]/a[3]
@@ -108,8 +109,8 @@ for i in range(1, 1205):
 	'''
 	similar_problems = driver.find_elements_by_class_name('question__25Pw')
 
-	#print('similar_problems ==> ', similar_problems)
-	#print('similar_problems ==> ', type(similar_problems))
+	print('similar_problems ==> ', similar_problems)
+	print('similar_problems ==> ', type(similar_problems))
 
 	for problem in similar_problems:
 		f.write(",")

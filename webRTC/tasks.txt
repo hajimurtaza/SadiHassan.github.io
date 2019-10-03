@@ -1,0 +1,34 @@
+1. Read a basic tutorial about webRTC -- 2
+
+2. Make a demo that will connect two computer talking with video -- 2
+
+3. a) Research on how many call can happen concurrently? -- 7
+   b) Learn more about webRTC (ongoing process)
+   c) Implement most features webRTC provides (ongoing process)
+   d) Be a pro about webRTC	(ongoing process)
+   
+4. How to locate servers in different parts of the world and how to switch servers based on user location? -- 7
+
+5. Design each feature, user action sequence, user account, email confirmation/verification after sign-up -- 10
+
+6. How payment will be implemented? Stripe? How to do that? -- 7
+
+7. Design of each page -- 15
+
+8. Detail Algorithm of scheduling -- 10
+
+9. Which back-end to use? Any framework? Which one? -- 8
+
+10. Write Algorithm for scheduling -- 10
+
+11. Code each pages -- 30
+
+12. Deploy on servers -- 7
+
+13. Test Plan -- 15
+
+14. Test -- 30
+
+14. Launch!
+
+~ 6 months!

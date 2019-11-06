@@ -81,7 +81,7 @@ if (!isset($_SESSION['loggedin'])) {
 		let top_min = 10000;
 		let date = new Date();
 		let date_backward = new Date();
-		let matrix = Array();
+		let matrix;
 
 		function addSalat(id){
 			let background_color = document.getElementById(""+id).style.background;
@@ -115,7 +115,7 @@ if (!isset($_SESSION['loggedin'])) {
 		
 		
 		window.onload = function(){
-			
+			matrix = Array();
 			let container = document.getElementsByClassName("content");
 			date.setDate( date.getDate() - 1 );
 			root_div.classList.add("wrapper");
@@ -134,7 +134,7 @@ if (!isset($_SESSION['loggedin'])) {
 				date_div.id = "date";
 				root_div.appendChild(date_div);
 				
-				arr.push(date);
+				arr.push("" + date); // Sadi: if date object is passed instead of date as a string, the latest date always been appended!!! Why???
 				
 				
 				for(let col = 0; col < 5; col++){ // column for 5 times pray

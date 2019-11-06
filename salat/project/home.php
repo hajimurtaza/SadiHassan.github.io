@@ -81,6 +81,7 @@ if (!isset($_SESSION['loggedin'])) {
 		let top_min = 10000;
 		let date = new Date();
 		let date_backward = new Date();
+		let matrix = Array();
 
 		function addSalat(id){
 			let background_color = document.getElementById(""+id).style.background;
@@ -111,13 +112,11 @@ if (!isset($_SESSION['loggedin'])) {
 			return "InvalidDate";
 		}
 		
-		let testMe = function(){
-			console.log("Inside testME!!!");
-		}
+		
 		
 		window.onload = function(){
+			
 			let container = document.getElementsByClassName("content");
-			console.log(container);
 			date.setDate( date.getDate() - 1 );
 			root_div.classList.add("wrapper");
 			root_div.id = "wrapper_id";
@@ -128,11 +127,15 @@ if (!isset($_SESSION['loggedin'])) {
 			
 			
 			for(let row = 0; row < 35; row++){ //Initially amximum 15 rows are visible before scrolling
+				let arr = Array();
 				let date_div = document.createElement("div");
 				date.setDate( date.getDate() + 1 )
 				date_div.innerHTML = getMonthEng(date.getMonth()) + "/" + date.getDate();
 				date_div.id = "date";
 				root_div.appendChild(date_div);
+				
+				arr.push(date);
+				
 				
 				for(let col = 0; col < 5; col++){ // column for 5 times pray
 					let div = document.createElement("div");
@@ -140,26 +143,32 @@ if (!isset($_SESSION['loggedin'])) {
 					div.id = "" + (row * 5 + col);
 					box_last_id = (row * 5 + col);
 					div.innerHTML = ""; // + (row * 5 + col);
-					
+					arr.push(0);
 					root_div.appendChild(div);
 					
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+						arr[col] += 1;
 					};
 				}
-
-
+				
+				console.log(arr);
+				arr.pop();
+				matrix.push(arr);
+				
 			}
 			root_div.scrollTop = 50;
+			
+			console.log(matrix);
 		}
 		
 		let scrollAction = function(){
-			console.log("inside scrollAction");
+			//console.log("inside scrollAction");
 			let root_div = document.getElementById('wrapper_id')
 			
 			let new_row = 0;
-			console.log(root_div.scrollTop);
-			console.log(top_max);
+			//console.log(root_div.scrollTop);
+			//console.log(top_max);
 			
 			if(root_div.scrollTop > top_max){
 				top_max = root_div.scrollTop;

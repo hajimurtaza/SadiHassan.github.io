@@ -1,13 +1,23 @@
-<!DOCTYPE HTML>
+<?php
+// We need to use sessions, so you should always start sessions using the below code.
+session_start();
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+	header('Location: index.html');
+	exit();
+}
+?>
+
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>Salat</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta charset="utf-8">
+		<title>Home Page</title>
+		<link href="style.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+	
 	<style>
-		body {
-			margin: 10%;
-		}
+		
 		.box {
 		  background-color: #DDE1E6;
 		  color: #00f;
@@ -29,7 +39,7 @@
 
 		.wrapper {
 		  width: 60%;
-		  height: 300px; /* When I put height = 10%, scroll doesn't show-up. How to put height so that it will behave dynamically?*/
+		  height: 700px; /* When I put height = 10%, scroll doesn't show-up. How to put height so that it will behave dynamically?*/
 		  display: grid;
 		  grid-column-gap: 1%;
 		  grid-row-gap: 0%;
@@ -48,10 +58,21 @@
 			font-weight: 400;
 		}
 	</style>
-	</head>
 	
-	<body>
-	<div id="showScroll"></div>
+	</head>
+	<body class="loggedin">
+		<nav class="navtop">
+			<div>
+				<h1>Salat Diary</h1>
+				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
+				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+			</div>
+		</nav>
+		<div class="content">
+			<h2>Profile of <?=$_SESSION['name']?></h2>
+			<!--<p>Welcome back, <?=$_SESSION['name']?>!</p>-->
+		</div>
+	
 	<script>
 		
 		let root_div = document.createElement("div");
@@ -60,6 +81,7 @@
 		let top_min = 10000;
 		let date = new Date();
 		let date_backward = new Date();
+		let matrix;
 
 		function addSalat(id){
 			let background_color = document.getElementById(""+id).style.background;
@@ -90,34 +112,30 @@
 			return "InvalidDate";
 		}
 		
-		let testMe = function(){
-			console.log("Inside testME!!!");
-		}
+		
 		
 		window.onload = function(){
-			let body = document.body;
+			matrix = Array();
+			let container = document.getElementsByClassName("content");
 			date.setDate( date.getDate() - 1 );
 			root_div.classList.add("wrapper");
 			root_div.id = "wrapper_id";
 			
 			root_div.onscroll = function(){ setTimeout(scrollAction, 500); }
-			/*
-			root_div.onscroll = function(){
-				console.log("hi");
-			};
-			*/
+			
+			container[0].appendChild(root_div);
 			
 			
-			
-			body.appendChild(root_div);
-			
-			
-			for(let row = 0; row < 15; row++){ //Initially amximum 15 rows are visible before scrolling
+			for(let row = 0; row < 35; row++){ //Initially amximum 15 rows are visible before scrolling
+				let arr = Array();
 				let date_div = document.createElement("div");
 				date.setDate( date.getDate() + 1 )
 				date_div.innerHTML = getMonthEng(date.getMonth()) + "/" + date.getDate();
 				date_div.id = "date";
 				root_div.appendChild(date_div);
+				
+				arr.push("" + date); // Sadi: if date object is passed instead of date as a string, the latest date always been appended!!! Why???
+				
 				
 				for(let col = 0; col < 5; col++){ // column for 5 times pray
 					let div = document.createElement("div");
@@ -125,52 +143,32 @@
 					div.id = "" + (row * 5 + col);
 					box_last_id = (row * 5 + col);
 					div.innerHTML = ""; // + (row * 5 + col);
-					
+					arr.push(0);
 					root_div.appendChild(div);
 					
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+						arr[col] += 1;
 					};
 				}
-
-
+				
+				console.log(arr);
+				arr.pop();
+				matrix.push(arr);
+				
 			}
-			//console.log(document.documentElement.getBoundingClientRect());
 			root_div.scrollTop = 50;
-		}
-		/*
-		window.addEventListener('scroll', function() {
-			document.getElementById('40').innerHTML = pageYOffset + 'px';
-			if(pageYOffset >= 0){
-				for(let col = 0; col < 5; col++){
-					let div = document.createElement("div");
-					div.classList.add("box");
-					box_last_id++;
-					div.id = "" + box_last_id;
-					div.innerHTML = "" + box_last_id;
-					root_div.appendChild(div);
-					div.onclick = function(){
-												addSalat(div.id); //HOW div.id is accessible from inside function() scope?
-											};
-				}
-			}			
-		});
-		*/
-		let scrollAction = function(){
-			console.log("inside scrollAction");
-			let root_div = document.getElementById('wrapper_id')
-			/*
-			console.log(root_div.getBoundingClientRect().top);
-			console.log(root_div.getBoundingClientRect().bottom);
-			console.log(root_div.scrollTop);
-			console.log(root_div.scrollBottom);
-			document.getElementById('40').innerHTML = pageYOffset + 'px';
-			*/
 			
+			console.log(matrix);
+		}
+		
+		let scrollAction = function(){
+			//console.log("inside scrollAction");
+			let root_div = document.getElementById('wrapper_id')
 			
 			let new_row = 0;
-			console.log(root_div.scrollTop);
-			console.log(top_max);
+			//console.log(root_div.scrollTop);
+			//console.log(top_max);
 			
 			if(root_div.scrollTop > top_max){
 				top_max = root_div.scrollTop;
@@ -192,61 +190,15 @@
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
 					};
-
-				//new_row++;
-				//if(new_row > 1) break;
 				}
 			}
-			/*
-			else if(root_div.scrollTop < top_min && root_div.scrollTop < 10){
-				console.log(top_min);
-				top_min = root_div.scrollTop;
-				for(let col = 0; col < 5; col++){
-					let div = document.createElement("div");
-					div.classList.add("box");
-					box_last_id++;
-					div.id = "" + box_last_id;
-					div.innerHTML = "" + box_last_id;
-
-					if(box_last_id % 5 == 0){
-						let date_div = document.createElement("div");
-						date_backward.setDate( date_backward.getDate() + 1 )
-						date_div.id = "date";
-						date_div.innerHTML = getMonthEng(date_backward.getMonth()) + "/" + date_backward.getDate();
-						root_div.appendChild(date_div);
-					}
-					//root_div.appendChild(div);
-					document.body.insertBefore(div , root_div);
-					div.onclick = function(){
-						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
-					};
-
-					new_row++;
-					//if(new_row > 1) break;
-				}
-			}
-			*/
+			
 		}
 		
 	</script>
-	<!--	
-		<div class="wrapper">
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		  <div class="box"></div>
-		</div>
-	-->	
+	
+	
+	
+	
 	</body>
 </html>

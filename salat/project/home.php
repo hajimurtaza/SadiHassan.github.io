@@ -5,6 +5,9 @@ session_start();
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit();
+$matrix = 10; //$_GET['matrix'];
+//echo "<div display='none'> <script type='text/javascript'> console.log('console log message'); </script> </div>";
+echo("<script>console.log('hello');</script>");
 }
 ?>
 
@@ -71,15 +74,20 @@ if (!isset($_SESSION['loggedin'])) {
 		<div class="content">
 			<h2>Profile of <?=$_SESSION['name']?></h2>
 			<!--<p>Welcome back, <?=$_SESSION['name']?>!</p>-->
+		
 		</div>
+		<form method="get" name="form" action="home.php"> 
+        <input type="submit" value="Save"> 
+		
+    </form> 
 	
 	<script>
-		
 		let root_div = document.createElement("div");
 		let box_last_id = 0;
 		let top_max = -1;
 		let top_min = 10000;
 		let date = new Date();
+		let random_number = Math.random() * 100;
 		let date_backward = new Date();
 		let matrix;
 
@@ -134,10 +142,11 @@ if (!isset($_SESSION['loggedin'])) {
 				date_div.id = "date";
 				root_div.appendChild(date_div);
 				
+				random_number = Math.random() * 100;
 				arr.push("" + date); // Sadi: if date object is passed instead of date as a string, the latest date always been appended!!! Why???
+				//arr.push(random_number);
 				
-				
-				for(let col = 0; col < 5; col++){ // column for 5 times pray
+				for(let col = 1; col <= 5; col++){ // column for 5 times pray
 					let div = document.createElement("div");
 					div.classList.add("box");
 					div.id = "" + (row * 5 + col);
@@ -148,14 +157,11 @@ if (!isset($_SESSION['loggedin'])) {
 					
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
-						arr[col] += 1;
+						matrix[row][col] = (matrix[row][col] + 1) % 3;
+						//alert(matrix[row][col]);
 					};
 				}
-				
-				console.log(arr);
-				arr.pop();
 				matrix.push(arr);
-				
 			}
 			root_div.scrollTop = 50;
 			
@@ -163,23 +169,20 @@ if (!isset($_SESSION['loggedin'])) {
 		}
 		
 		let scrollAction = function(){
-			//console.log("inside scrollAction");
+			
 			let root_div = document.getElementById('wrapper_id')
 			
 			let new_row = 0;
-			//console.log(root_div.scrollTop);
-			//console.log(top_max);
 			
 			if(root_div.scrollTop > top_max){
 				top_max = root_div.scrollTop;
-				for(let col = 0; col < 5; col++){
+				for(let col = 1; col <= 5; col++){
 					let div = document.createElement("div");
 					div.classList.add("box");
 					box_last_id++;
 					div.id = "" + box_last_id;
-					//div.innerHTML = "" + box_last_id;
-
-					if(box_last_id % 5 == 0){
+			
+					if(box_last_id % 5 == 1){
 						let date_div = document.createElement("div");
 						date.setDate( date.getDate() + 1 )
 						date_div.id = "date";
@@ -195,10 +198,6 @@ if (!isset($_SESSION['loggedin'])) {
 			
 		}
 		
-	</script>
-	
-	
-	
-	
+	</script>	
 	</body>
 </html>

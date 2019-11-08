@@ -1,14 +1,16 @@
 <?php
-// We need to use sessions, so you should always start sessions using the below code.
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
-	exit();
-$matrix = 10; //$_GET['matrix'];
-//echo "<div display='none'> <script type='text/javascript'> console.log('console log message'); </script> </div>";
-echo("<script>console.log('hello');</script>");
-}
+	// We need to use sessions, so you should always start sessions using the below code.
+	session_start();
+	// If the user is not logged in redirect to the login page...
+	if (!isset($_SESSION['loggedin'])) {
+		header('Location: index.html');
+		exit();
+	}    
+	if(isset($_POST['SubmitButton'])){ //check if form was submitted
+		$matrix = $_POST['matrix']; //get input text
+		print_r($matrix);
+	}
+	
 ?>
 
 <!DOCTYPE html>
@@ -76,10 +78,10 @@ echo("<script>console.log('hello');</script>");
 			<!--<p>Welcome back, <?=$_SESSION['name']?>!</p>-->
 		
 		</div>
-		<form method="get" name="form" action="home.php"> 
-        <input type="submit" value="Save"> 
-		
-    </form> 
+		<form action="" method="post"> 
+			<input type="text" id="matrix" name="matrix">
+			<input type="submit" value="Save" name="SubmitButton"> 
+		</form> 
 	
 	<script>
 		let root_div = document.createElement("div");
@@ -90,6 +92,7 @@ echo("<script>console.log('hello');</script>");
 		let random_number = Math.random() * 100;
 		let date_backward = new Date();
 		let matrix;
+		let cur_row = 0;
 
 		function addSalat(id){
 			let background_color = document.getElementById(""+id).style.background;
@@ -158,14 +161,18 @@ echo("<script>console.log('hello');</script>");
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
 						matrix[row][col] = (matrix[row][col] + 1) % 3;
+						document.getElementById("matrix").value = matrix;
 						//alert(matrix[row][col]);
 					};
 				}
 				matrix.push(arr);
+				cur_row = row;
+				document.getElementById("matrix").value = matrix;
 			}
 			root_div.scrollTop = 50;
 			
-			console.log(matrix);
+			//console.log(matrix);
+			
 		}
 		
 		let scrollAction = function(){
@@ -176,26 +183,40 @@ echo("<script>console.log('hello');</script>");
 			
 			if(root_div.scrollTop > top_max){
 				top_max = root_div.scrollTop;
+				cur_row++;
+				let arr = Array();
 				for(let col = 1; col <= 5; col++){
 					let div = document.createElement("div");
 					div.classList.add("box");
 					box_last_id++;
 					div.id = "" + box_last_id;
-			
+					div.innerHTML = div.id;
 					if(box_last_id % 5 == 1){
 						let date_div = document.createElement("div");
 						date.setDate( date.getDate() + 1 )
+						arr.push("" + date);
 						date_div.id = "date";
 						date_div.innerHTML = getMonthEng(date.getMonth()) + "/" + date.getDate();
 						root_div.appendChild(date_div);
 					}
+					else {
+						arr.push(0);
+					}
+					
 					root_div.appendChild(div);
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+						col = div.id % 5;
+						row = Math.floor(div.id / 5);
+						//console.log(row + " " + col);
+						matrix[row][col] = (matrix[row][col] + 1) % 3;
+						document.getElementById("matrix").value = matrix;
 					};
 				}
+				matrix.push(arr);
 			}
-			
+			document.getElementById("matrix").value = matrix;
+			//console.log(matrix);
 		}
 		
 	</script>	

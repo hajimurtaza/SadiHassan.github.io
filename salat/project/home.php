@@ -8,7 +8,17 @@
 	}    
 	if(isset($_POST['SubmitButton'])){ //check if form was submitted
 		$matrix = $_POST['matrix']; //get input text
-		print_r($matrix);
+		//print_r($matrix);
+		/*
+		$token = strtok($matrix, ",");
+		while($token !== false){
+			print_r($token);
+			$token = strtok($token, ",");
+		}
+		*/
+		$matrix_splitted = explode(",", $matrix);
+		//print_r($matrix_splitted);
+		for($i = 0 ; $i < )
 	}
 	
 ?>
@@ -190,7 +200,7 @@
 					div.classList.add("box");
 					box_last_id++;
 					div.id = "" + box_last_id;
-					div.innerHTML = div.id;
+					//div.innerHTML = div.id;
 					if(box_last_id % 5 == 1){
 						let date_div = document.createElement("div");
 						date.setDate( date.getDate() + 1 )

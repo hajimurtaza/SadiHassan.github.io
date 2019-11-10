@@ -1,11 +1,26 @@
 <?php
-// We need to use sessions, so you should always start sessions using the below code.
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
-	exit();
-}
+	// We need to use sessions, so you should always start sessions using the below code.
+	session_start();
+	// If the user is not logged in redirect to the login page...
+	if (!isset($_SESSION['loggedin'])) {
+		header('Location: index.html');
+		exit();
+	}    
+	if(isset($_POST['SubmitButton'])){ //check if form was submitted
+		$matrix = $_POST['matrix']; //get input text
+		//print_r($matrix);
+		/*
+		$token = strtok($matrix, ",");
+		while($token !== false){
+			print_r($token);
+			$token = strtok($token, ",");
+		}
+		*/
+		$matrix_splitted = explode(",", $matrix);
+		//print_r($matrix_splitted);
+		for($i = 0 ; $i < )
+	}
+	
 ?>
 
 <!DOCTYPE html>
@@ -71,17 +86,23 @@ if (!isset($_SESSION['loggedin'])) {
 		<div class="content">
 			<h2>Profile of <?=$_SESSION['name']?></h2>
 			<!--<p>Welcome back, <?=$_SESSION['name']?>!</p>-->
+		
 		</div>
+		<form action="" method="post"> 
+			<input type="text" id="matrix" name="matrix">
+			<input type="submit" value="Save" name="SubmitButton"> 
+		</form> 
 	
 	<script>
-		
 		let root_div = document.createElement("div");
 		let box_last_id = 0;
 		let top_max = -1;
 		let top_min = 10000;
 		let date = new Date();
+		let random_number = Math.random() * 100;
 		let date_backward = new Date();
 		let matrix;
+		let cur_row = 0;
 
 		function addSalat(id){
 			let background_color = document.getElementById(""+id).style.background;
@@ -134,10 +155,11 @@ if (!isset($_SESSION['loggedin'])) {
 				date_div.id = "date";
 				root_div.appendChild(date_div);
 				
+				random_number = Math.random() * 100;
 				arr.push("" + date); // Sadi: if date object is passed instead of date as a string, the latest date always been appended!!! Why???
+				//arr.push(random_number);
 				
-				
-				for(let col = 0; col < 5; col++){ // column for 5 times pray
+				for(let col = 1; col <= 5; col++){ // column for 5 times pray
 					let div = document.createElement("div");
 					div.classList.add("box");
 					div.id = "" + (row * 5 + col);
@@ -148,57 +170,65 @@ if (!isset($_SESSION['loggedin'])) {
 					
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
-						arr[col] += 1;
+						matrix[row][col] = (matrix[row][col] + 1) % 3;
+						document.getElementById("matrix").value = matrix;
+						//alert(matrix[row][col]);
 					};
 				}
-				
-				console.log(arr);
-				arr.pop();
 				matrix.push(arr);
-				
+				cur_row = row;
+				document.getElementById("matrix").value = matrix;
 			}
 			root_div.scrollTop = 50;
 			
-			console.log(matrix);
+			//console.log(matrix);
+			
 		}
 		
 		let scrollAction = function(){
-			//console.log("inside scrollAction");
+			
 			let root_div = document.getElementById('wrapper_id')
 			
 			let new_row = 0;
-			//console.log(root_div.scrollTop);
-			//console.log(top_max);
 			
 			if(root_div.scrollTop > top_max){
 				top_max = root_div.scrollTop;
-				for(let col = 0; col < 5; col++){
+				cur_row++;
+				let arr = Array();
+				for(let col = 1; col <= 5; col++){
 					let div = document.createElement("div");
 					div.classList.add("box");
 					box_last_id++;
 					div.id = "" + box_last_id;
-					//div.innerHTML = "" + box_last_id;
-
-					if(box_last_id % 5 == 0){
+					//div.innerHTML = div.id;
+					if(box_last_id % 5 == 1){
 						let date_div = document.createElement("div");
 						date.setDate( date.getDate() + 1 )
+						arr.push("" + date);
 						date_div.id = "date";
 						date_div.innerHTML = getMonthEng(date.getMonth()) + "/" + date.getDate();
 						root_div.appendChild(date_div);
 					}
+					else {
+						arr.push(0);
+					}
+					
 					root_div.appendChild(div);
 					div.onclick = function(){
 						addSalat(div.id); //HOW div.id is accessible from inside function() scope?
+						col = div.id % 5;
+						row = Math.floor(div.id / 5);
+						//console.log(row + " " + col);
+						matrix[row][col] = (matrix[row][col] + 1) % 3;
+						document.getElementById("matrix").value = matrix;
 					};
 				}
+				matrix.push(arr);
 			}
-			
+			document.getElementById("matrix").value = matrix;
+			//console.log(matrix);
 		}
 		
-	</script>
-	
-	
-	
-	
+	</script>	
 	</body>
 </html>

@@ -1,4 +1,20 @@
 <?php
+	/*
+		Task List (as of today 2019-11-11)
+		1. NEED TO FIND A WAY WHERE ONLY THE EFFECTED ROWS WILL BE INSERTED (Yes, Inserted for now only) in DB
+		2. IF a values is already in DB AND any change has occured, it will be UPDATED
+		3. INSERT/UPDATE will happen for user_id (add WHERE clause in query)
+		4. SHOW the grid based on present status in DataBase (start date from DB start date, green/dark green/white based on DB cell values)
+		
+		5. Hit counter add to page
+		6. Home Page Design
+		7. Sign up functionality with email verification
+
+		8. Design grids look and feel
+		9. Design the entire app to be mobile friendly (Device independent)
+		10. How to get user location? from login IP address? How to get as many user info as possible for research?
+	*/
+
 	// We need to use sessions, so you should always start sessions using the below code.
 	session_start();
 	// If the user is not logged in redirect to the login page...
@@ -8,17 +24,59 @@
 	}    
 	if(isset($_POST['SubmitButton'])){ //check if form was submitted
 		$matrix = $_POST['matrix']; //get input text
-		//print_r($matrix);
-		/*
-		$token = strtok($matrix, ",");
-		while($token !== false){
-			print_r($token);
-			$token = strtok($token, ",");
-		}
-		*/
+		
 		$matrix_splitted = explode(",", $matrix);
-		//print_r($matrix_splitted);
-		for($i = 0 ; $i < )
+		
+		$length = count($matrix_splitted);
+		$matrix_arr = array();
+		$temp = array();
+		
+		for($i = 0 ; $i < $length; $i++){
+			if($i > 0 && $i % 6 == 0){
+				array_push($matrix_arr, $temp);
+				$temp = array();
+			}
+			array_push($temp, $matrix_splitted[$i]);
+		}
+		
+		$matrix_to_insert = array();
+		for($i = 0 ; $i < count($matrix_arr); $i++){
+			print_r($matrix_arr[$i]);
+			echo '<br/>';
+			/*
+				NEED TO FIND A WAY WHERE ONLY THE EFFECTED ROWS WILL BE INSERTED (Yes, Inserted for now only) in DB
+			*/
+			/*
+			$temp = array();
+			$need_to_append = 0;
+			for($j = 0; $j < count($matrix_arr[$i]); $j++){
+				array_push($temp, $matrix_arr[$i][$j]);
+				if($j > 0 && $matrix_arr[$i][$j] >)	
+			}
+			*/
+		}
+		
+		// Change this to your connection info.
+		$DATABASE_HOST = 'localhost';
+		$DATABASE_USER = 'root';
+		$DATABASE_PASS = '';
+		$DATABASE_NAME = 'salat';
+		// Try and connect using the info above.
+		$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+		if ( mysqli_connect_errno() ) {
+			// If there is an error with the connection, stop the script and display the error.
+			die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+		}
+
+		$sql = "INSERT INTO user_activity (user_id, date, act_1) VALUES ('1', '2019-11-10', '2')";
+
+		if ($con->query($sql) === TRUE) {
+		    echo "New record created successfully";
+		} else {
+		    echo "Error: " . $sql . "<br>" . $con->error;
+		}
+		
+		$con->close();
 	}
 	
 ?>

@@ -1,0 +1,180 @@
+document.addEventListener('DOMContentLoaded', function () {
+  const vm = new Vue({
+    el: '#root',
+    data: () => {
+      const ref = encodeURIComponent('https://app.hackernoon.com');
+      const loginLink = `https://community.hackernoon.com/session/sso?return_path=${ref}`;
+      const signupLink = `https://community.hackernoon.com/session/sso?return_path=${ref}`;
+
+      return {
+        menuOpen: false,
+        expandBio: false,
+        ads: null,
+        loginLink,
+        signupLink,
+        ad: '',
+        search: '',
+        searchFocus: false,
+        activeCTA: 'readers',
+        nav: '',
+        navBounce: null,
+        user: null,
+        userLoaded: false
+      };
+    },
+    async mounted() {
+      const adJsonUrl = '/ads.json';
+
+      fetch(adJsonUrl)
+        .then(response => {
+          return response.json();
+        })
+        .then(async json => {
+          this.ad = json.ads;
+          await this.incrementSponsorshipDatum({ sponsorship: this.ad.banner.id, field: 'impressions' });
+        });
+
+      if (!firebase.auth().currentUser) {
+        const res = await fetch('https://auth.hackernoon.com/api/postauth', {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'include'
+        });
+
+        if (res.ok) {
+          const { token } = await res.json();
+          const { user } = await firebase.auth().signInWithCustomToken(token);
+
+          const profileUrl = `https://api.hackernoon.com/profiles/${user.uid}`;
+          const profileRes = await fetch(profileUrl, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (profileRes.ok) {
+            const profile = await profileRes.json();
+            this.user = Object.assign({}, user, profile);
+          }
+        }
+      }
+
+      this.userLoaded = true;
+
+      const pathnameParts = window.location.pathname.split('/');
+      const storySlug = pathnameParts[pathnameParts.length - 1];
+
+      if (storySlug !== '') {
+        const jsonUrl = `/${storySlug}.json`;
+
+        fetch(jsonUrl)
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          for (const prop of Object.keys(json)) {
+            this[prop] = json[prop];
+          }
+        });
+      }
+    },
+    computed: {
+      profileLink() {
+        return `https://app.hackernoon.com/profile`;
+      },
+      profileImage() {
+        return `https://hackernoon.com/avatars/${this.user.uid}.png`;
+      }
+    },
+    methods: {
+      menuToggle() {
+        this.menuOpen = !this.menuOpen;
+      },
+      bioToggle () {
+        this.expandBio = !this.expandBio;
+      },
+      submitSearch () {
+        console.log('down', this.searchFocus);
+        if (this.searchFocus === false){
+          this.searchFocus = true;
+          this.$refs.search.focus();
+        } else {
+          if (this.search !== '') {
+            window.open(`https://www.google.com/search?q=site%3Ahackernoon.com+${this.search}`, '_blank');
+          }
+        }
+      },
+      openNav (nav) {
+        this.nav = nav;
+        clearTimeout(this.navBounce);
+      },
+      closeNav () {
+        this.navBounce = setTimeout(() => {
+          this.nav = '';
+        }, 400);
+      },
+      closeNavReset () {
+        clearTimeout(this.navBounce);
+      },
+
+      async logout(ev) {
+        await firebase.auth().logout();
+      },
+
+      async sendEmoji(ev) {
+        ev.preventDefault();
+
+        const user = firebase.auth().currentUser;
+        if (!user) { return; }
+
+        const token = await user.getIdToken(true);
+        const url = 'https://us-central1-hackernoon-app.cloudfunctions.net/app/react';
+
+        const body = JSON.stringify({
+          emoji: ev.target.getAttribute('emoji'),
+          story: this.story.id
+        });
+
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        };
+
+        const res = await fetch(url, {
+          method: 'POST',
+          mode: 'cors',
+          headers,
+          body
+        });
+
+        ev.target.classList.add('active');
+      },
+
+      async recordAdClick(ev) {
+        ev.preventDefault();
+        await this.incrementSponsorshipDatum({ sponsorship: this.ad.banner.id, field: 'clicks' });
+        window.open(ev.target.getAttribute('href'), '_blank');
+      },
+
+      async incrementSponsorshipDatum({ sponsorship, field }) {
+        let data = {
+          sponsorship,
+          field
+        };
+
+        await fetch('https://api.hackernoon.com/analytics/ads/increment', {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+      }
+    }
+  });
+});

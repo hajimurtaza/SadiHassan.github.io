@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+text{
+	font-size: 1.4em;
+}
+
+}
+</style>
+<body>
+	<svg width="960" height="500"></svg>
+</label>
+
+<!-- load the d3.js library -->    	
+<script src="../js/d3.v5.min.js"></script>
+<!--<script src="https://unpkg.com/d3@5.9.2/dist/d3.min.js"></script>-->
+
+<script>
+ 
+//import { select, csv, scaleLinear, max, scaleBand, axisLeft, axisBottom } from 'd3';
+
+const svg = d3.select('svg');
+
+const width = +svg.attr('width');
+const height = +svg.attr('height');
+
+const render = data => {
+  
+  const xValue = d => d.population;
+  const yValue = d => d.country;
+  const margin = {top: 50, right: 50, left: 150, bottom: 70};
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+  
+  //Take away=> xScale returns a VALUE!!!!!
+  //Need to understand this more :(
+  const xScale = d3.scaleLinear() //understand max() func
+  							.domain([0, d3.max(data, xValue)]) //Q: How data is passed through xValue? How d3.max with 2 parameters works?
+  							.range([0, innerWidth]);           //ANS: This is equivalent to calling a map() function 
+							                                   //which creates a new array with the results of calling a provided function 
+															   //on every element in the calling array. Eg: d3.max(data.map(d => d.population))  
+  
+  console.log("xScale.domain() => ");	//Output: (2) [0, 1415046000]
+  console.log(xScale.domain());
+  console.log("xScale.range() => ");	//Output: (2) [0, 760]
+  console.log(xScale.range());
+  
+  const yScale = d3.scaleBand()
+  						.domain(data.map(yValue))
+  						.range([0, innerHeight])
+  						.padding(0.2);
+  
+  const yAxis = d3.axisLeft(yScale);
+  const xAxis = d3.axisBottom(xScale);
+  
+  /*
+  console.log(yScale.domain());
+  console.log(xScale(100000000000));
+  console.log(xScale.domain());
+  console.log(xScale.range());
+  */
+  
+  const g = svg.append('g')
+  		.attr('transform', `translate(${margin.left},${margin.top})`);			
+  
+  g.append('g').call(yAxis);
+  g.append('g').call(xAxis)
+  		.attr('transform', `translate(0,${innerHeight})`);;
+  
+  g.selectAll('rect')
+		.data(data)
+		.enter()
+		.append('rect') //how xScale works when we are passing a single value (d.population)?
+		.attr('y', d => yScale(yValue(d))) //how it worked? yValue(d) = d.country ? How?
+		.attr('width', d => xScale(xValue(d))) //how xValue(d) = d.population ?
+		.attr('height', yScale.bandwidth())
+		.attr('fill', 'steelblue')
+		//.attr('hover', alert('hi'))
+		.on('mouseover', function() {
+            d3.select(this)
+            	.attr("fill", "red");
+			
+        })
+		.on("mouseout", function(d, i) {
+            d3.select(this).attr("fill", "steelblue");
+			
+        });
+
+  
+  console.log(yScale('China'));
+  console.log(yScale('Mexico'));
+  console.log(innerHeight);
+  console.log(yScale.bandwidth()); //yScale.bandwidth() returns height of each rectangle which is = (innerHeight)/(total number of countries) ... in this case
+								   // https://www.d3indepth.com/scales/ 
+  };
+// END OF RENDER() FUNCTION
+  
+  
+//Promise works for d3v5 !!!!!!!!!!!!!!!
+d3.csv('data.csv').then( data => {
+	data.forEach(d =>{
+  	d.population = +d.population * 1000;
+  });
+  render(data);
+});
+
+
+/*
+d3.csv('data.csv', data => {
+	data.forEach(d =>{
+  	d.population = +d.population * 1000;
+  }
+}));
+*/
+
+
+// Get the data
+/*
+d3.csv( "data.csv" , function(error, data) {
+  if (error) throw error;
+  // format the data
+  data.forEach(function(d) {
+      d.population = +d.population * 1000;
+  })
+  render(data);
+  }
+  );
+*/
+</script>
+</body>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+<style>
+
+.container{
+  float:left;
+  height: 450px;
+  width:350px; 
+  padding:3px; 
+  background:#FFA500;
+}
+.content{
+  height: 450px;
+  overflow: auto;
+  background: #FFFFFF;
+}
+
+</style>
+
+
+
+
+
+<!-- load the d3.js library -->    	
+<script src="js/d3.v4.min.js"></script>
+<script>
+
+var width = 500;
+var height = 500;
+
+var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).style("border", "1px dashed");
+
+var boxG = svg.append("g");
+
+var circleG = svg.append("g");
+
+var numBoxes = 20;
+var arr = d3.range(0,numBoxes+1);
+var boxSize = width/numBoxes;
+
+var boxEnter = boxG.selectAll("line").data(arr).enter();
+
+boxEnter.append("line").attr("x1", function (d){return d*boxSize}).attr("x2", function (d){return d*boxSize;}).attr("y1", 0).attr("y2", height).style("stroke", "black");
+boxEnter.append("line").attr("x1", 0).attr("x2", width).attr("y1", function (d){return d*boxSize}).attr("y2", function (d){return d*boxSize}).style("stroke", "black");
+
+
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed);
+function zoomed() {
+  boxG.attr("transform", "translate(" + d3.event.translate[0]%(boxSize*d3.event.scale)+","+d3.event.translate[1]%(boxSize*d3.event.scale) + ")scale(" + d3.event.scale + ")");
+}
+svg.call(zoom);					
+</script>
+</body>

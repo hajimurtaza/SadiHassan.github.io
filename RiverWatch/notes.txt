@@ -1,0 +1,5 @@
+The main function for loading the data is populateList
+The data is stored in StationData with the Measured data in waterLevels, and the Forecast data in forecasts.
+ 
+waterLevels and forecasts are arrays of data objects consisting of dtime, wlvl.
+ 

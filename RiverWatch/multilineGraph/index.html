@@ -1,0 +1,53 @@
+<!DOCTYPE="html">
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<canvas id="myChart"></canvas>
+<script>
+var ctx = document.getElementById("myChart");
+
+var myChart = new Chart(ctx, {
+  type: 'scatter',
+  data: {
+    //labels: ["2019-02-1", "2019-02-2", "2019-02-3", "2019-02-4", "2019-02-5", "2019-02-6"],
+    datasets: [
+    	{
+        label: 'Chart 1',
+        data: [{x: new Date("2019-02-01"), y: 3},{x: new Date("2019-02-02"), y: 6.7}, {x: new Date("2019-02-03"), y: 5}],
+        showLine: true,
+		showLabel: false,
+        fill: false,
+        borderColor: 'rgba(0, 200, 0, 1)'
+    	},
+      {
+        label: 'Chart 2',
+        data: [{x: new Date("2019-02-03"), y: 6}, {x: new Date("2019-02-05"), y: 3},{x: new Date("2019-02-06"), y: 4}],
+        showLine: true,
+        fill: false,
+        borderColor: 'rgba(200, 0, 0, 1)'
+    	}
+    ]
+  },
+  options: {
+    tooltips: {
+      mode: 'index',
+      intersect: false,
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: true
+    },
+    scales: {
+	  xAxes: [{
+            type: 'time',
+            time: { parser: 'YYYY-MM-DD' },
+          }],	
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    },
+  }
+});
+</script>
+</body>

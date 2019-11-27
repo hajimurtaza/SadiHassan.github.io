@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+		
+		Civic Tech Fredericton
+		GeoNB
+		
+
+# THANKS
+
+    
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Apache Server Configs, jQuery, Modernizr, Normalize.css
+    Chart.js, Google Maps API, js-cookie

@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Line Chart</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+<div style="width:75%;">
+    <canvas id="canvas"></canvas>
+</div>
+<script>
+	Chart.defaults.modifiedline = Chart.defaults.line;
+
+    var timeFormat = 'DD/MM/YYYY';
+	var forecast_available = false;
+	var borderColorProp = function(){ 
+							if(forecast_available)
+							return 'rgba(198, 179, 255, 1)';
+							return 'rgba(198, 179, 255, 0)';	
+						}
+    
+	var forecast_data = function(){ 
+							if(forecast_available)
+							return [
+										{ x: "03/02/2019 12:30", y: 3.9 }, 
+										{ x: "04/02/2019 3:30", y: 9.5 },
+										{ x: "05/02/2019 4:30", y: 7.5 }
+									];
+							return [
+										{ x: "03/02/2019", y: "" }, 
+										{ x: "05/02/2019", y: "" },
+										{ x: "06/02/2019", y: "" }
+									];	
+						}
+	
+	var config = {
+        type:    'modifiedline',
+        data:    {
+            datasets: [
+                {
+                    label: "Actual",
+                    data: [
+								{ x: "01/02/2019", y: 4.5 }, 
+								{ x: "02/02/2019", y: 5.7 }, 
+								{ x: "03/02/2019", y: 3.6 }
+						  ],
+                    fill: false,
+                    borderColor: 'rgb(121, 210, 121)'
+                },
+                {
+                    label: "Predicted",
+                    data:  forecast_data(),
+                    fill:  false,
+                    borderColor: borderColorProp()
+                }
+            ]
+        },
+        options: {		
+			legend: { display: false,
+					  position: 'bottom'	},
+            responsive: true,
+            title:      {
+                display: true,
+                text:    "Fredericton Water Level"
+            },
+            scales:     {
+                xAxes: [{
+                    type:       "time",
+                    time:       {
+                        format: timeFormat,
+                        tooltipFormat: 'll'
+                    },
+                    scaleLabel: {
+                        display:     true,
+                        labelString: 'Date/Time'
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display:     true,
+                        labelString: 'Water Level(m)'
+                    }
+                }]
+            }
+			
+        }
+		//var custom = Chart.controllers.line.extend({
+		//});
+		/*
+		var custom = Chart.controllers.line.extend({
+			draw: function(ease) {
+				// Call super method first
+				Chart.controllers.line.prototype.draw.call(this, ease);
+
+				// Now we can do some custom drawing for this dataset. Here we'll draw a red box around the first point in each dataset
+				//var meta = this.getMeta();
+				//var pt0 = meta.data[0];
+				//var radius = pt0._view.radius;
+
+				var ctx = this.chart.chart.ctx;
+				ctx.save();
+				ctx.strokeStyle = 'red';
+				ctx.lineWidth = 1;
+				ctx.strokeRect(20, 20, 50, 50);
+				ctx.restore();
+			}
+		});*/
+    };
+	
+	var custom = Chart.controllers.line.extend({
+			draw: function(ease) {
+				// Call super method first
+				Chart.controllers.line.prototype.draw.call(this, ease);
+
+				// Now we can do some custom drawing for this dataset. Here we'll draw a red box around the first point in each dataset
+				//var meta = this.getMeta();
+				//var pt0 = meta.data[0];
+				//var radius = pt0._view.radius;
+				var ctx = this.chart.chart.ctx;
+				ctx.save();
+				ctx.strokeStyle  = 'rgb(255, 173, 153)';
+				ctx.beginPath(); 
+				ctx.moveTo(605,32);
+				ctx.lineTo(605,600);
+				ctx.stroke();
+				
+				if(!forecast_available){
+					
+					ctx.strokeStyle = 'red';
+					ctx.lineWidth = 1;
+					ctx.strokeRect(900, 400, 500, 80);
+					
+					ctx.fillStyle  = 'black';
+					ctx.font = "20px Arial";
+					ctx.fillText("Forecast Data not available at this location", 950, 420);	
+				}
+				ctx.restore();
+				
+			}
+		});
+	Chart.controllers.modifiedline = custom;
+    
+	window.onload = function () {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+    };
+
+</script>
+
+</body>
+
+</html>
+</html>

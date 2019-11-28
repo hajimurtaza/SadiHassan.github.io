@@ -23,7 +23,7 @@
 	Chart.defaults.modifiedline = Chart.defaults.line;
 
     var timeFormat = 'DD/MM/YYYY';
-	var forecast_available = false;
+	var forecast_available = true;
 	var borderColorProp = function(){ 
 							if(forecast_available)
 							return 'rgba(198, 179, 255, 1)';
@@ -33,14 +33,47 @@
 	var forecast_data = function(){ 
 							if(forecast_available)
 							return [
-										{ x: "03/02/2019 12:30", y: 3.9 }, 
-										{ x: "04/02/2019 3:30", y: 9.5 },
-										{ x: "05/02/2019 4:30", y: 7.5 }
+										
+										{ x: "05/02/2019 00:00", y: 5.9 },
+										{ x: "05/02/2019 01:00", y: 5.7 },
+										{ x: "05/02/2019 02:00", y: 5.6 },
+										{ x: "05/02/2019 03:00", y: 5.0 },
+										{ x: "05/02/2019 04:00", y: 5.2 },
+										{ x: "05/02/2019 05:00", y: 5.1 },
+										{ x: "05/02/2019 06:00", y: 5.3 },
+										
+										{ x: "06/02/2019 12:00", y: 6.7 }, 
+										{ x: "06/02/2019 14:20", y: 6.5 },
+										{ x: "06/02/2019 15:20", y: 6.8 },
+										{ x: "06/02/2019 16:20", y: 6.9 },
+										{ x: "06/02/2019 17:20", y: 6.1 },
+										{ x: "06/02/2019 18:20", y: 6.9 },
+										
+										{ x: "07/02/2019 01:20", y: 7.2 },
+										{ x: "07/02/2019 03:20", y: 7.3 },
+										{ x: "07/02/2019 05:20", y: 7.7 },
+										{ x: "07/02/2019 07:20", y: 7.6 },
+										{ x: "07/02/2019 09:20", y: 7.6 },
+										{ x: "07/02/2019 11:20", y: 7.7 },
+										
+										{ x: "08/02/2019 03:20", y: 8.1 },
+										{ x: "08/02/2019 04:20", y: 8.2 },
+										{ x: "08/02/2019 05:20", y: 8.3 },
+										{ x: "08/02/2019 06:20", y: 8.4 },
+										{ x: "08/02/2019 07:20", y: 8.6 },
+										{ x: "08/02/2019 08:20", y: 8.9 },
+										
+										{ x: "09/02/2019 09:20", y: 9.1 },
+										{ x: "09/02/2019 10:20", y: 8.7 },
+										{ x: "09/02/2019 11:20", y: 8.6 },
+										{ x: "09/02/2019 12:20", y: 8.4 },
+										{ x: "09/02/2019 13:20", y: 8.3 },
+										{ x: "09/02/2019 14:20", y: 8.2 }
 									];
 							return [
-										{ x: "03/02/2019", y: "" }, 
-										{ x: "05/02/2019", y: "" },
-										{ x: "06/02/2019", y: "" }
+										{ x: "06/02/2019 12:20", y: "" }, 
+										{ x: "07/02/2019 12:20", y: "" },
+										{ x: "08/02/2019 12:20", y: "" }
 									];	
 						}
 	
@@ -51,9 +84,37 @@
                 {
                     label: "Actual",
                     data: [
-								{ x: "01/02/2019", y: 4.5 }, 
-								{ x: "02/02/2019", y: 5.7 }, 
-								{ x: "03/02/2019", y: 3.6 }
+								{ x: "01/02/2019 00:00", y: 4.5 },
+								{ x: "01/02/2019 01:00", y: 4.7 },
+								{ x: "01/02/2019 02:00", y: 4.6 },
+								{ x: "01/02/2019 03:00", y: 5.0 },
+								{ x: "01/02/2019 04:00", y: 5.2 },
+								{ x: "01/02/2019 05:00", y: null },
+								{ x: "01/02/2019 06:00", y: null },
+								
+								{ x: "02/02/2019 12:00", y: 5.7 }, 
+								{ x: "02/02/2019 14:20", y: 5.5 },
+								{ x: "02/02/2019 15:20", y: 5.8 },
+								{ x: "02/02/2019 16:20", y: 5.9 },
+								{ x: "02/02/2019 17:20", y: 6.1 },
+								{ x: "02/02/2019 18:20", y: 5.9 },
+								
+								{ x: "03/02/2019 01:20", y: 6.2 },
+								{ x: "03/02/2019 03:20", y: 6.3 },
+								{ x: "03/02/2019 05:20", y: 6.7 },
+								{ x: "03/02/2019 07:20", y: 7.6 },
+								{ x: "03/02/2019 09:20", y: 7.6 },
+								{ x: "03/02/2019 11:20", y: 8.7 },
+								
+								{ x: "04/02/2019 03:20", y: 4.6 },
+								{ x: "04/02/2019 04:20", y: 4.5 },
+								{ x: "04/02/2019 05:20", y: 4.8 },
+								{ x: "04/02/2019 06:20", y: 4.4 },
+								{ x: "04/02/2019 07:20", y: 4.6 },
+								{ x: "04/02/2019 08:20", y: 4.9 },
+								{ x: "04/02/2019 24:00", y: 4.9 }
+								
+								
 						  ],
                     fill: false,
                     borderColor: 'rgb(121, 210, 121)'
@@ -62,11 +123,13 @@
                     label: "Predicted",
                     data:  forecast_data(),
                     fill:  false,
+					 borderDash: [10,5],
                     borderColor: borderColorProp()
                 }
             ]
         },
-        options: {		
+        options: {
+			spanGaps: false,
 			legend: { display: false,
 					  position: 'bottom'	},
             responsive: true,
@@ -77,14 +140,30 @@
             scales:     {
                 xAxes: [{
                     type:       "time",
-                    time:       {
+                    
+					/*
+					time:{
                         format: timeFormat,
                         tooltipFormat: 'll'
                     },
-                    scaleLabel: {
+                    */
+					time: {
+							parser: 'DD/MM/YYYY HH:mm',
+							tooltipFormat: 'll HH:mm',
+							unit: 'day',
+							unitStepSize: 1,
+							displayFormats: {
+							  'day': 'MM/DD/YYYY'
+							}},
+					
+					scaleLabel: {
                         display:     true,
                         labelString: 'Date/Time'
-                    }
+                    },
+					ticks: {
+							autoSkip: true,
+							maxTicksLimit: 8
+						}
                 }],
                 yAxes: [{
                     scaleLabel: {
@@ -127,12 +206,17 @@
 				//var meta = this.getMeta();
 				//var pt0 = meta.data[0];
 				//var radius = pt0._view.radius;
+				
+				//console.log(config.data.datasets[0]._meta[0].data[25]._model.x);
+				console.log(Chart.controllers.line);
+				
+				var x = config.data.datasets[0]._meta[0].data[25]._model.x;
 				var ctx = this.chart.chart.ctx;
 				ctx.save();
 				ctx.strokeStyle  = 'rgb(255, 173, 153)';
 				ctx.beginPath(); 
-				ctx.moveTo(605,32);
-				ctx.lineTo(605,600);
+				ctx.moveTo(x,32);
+				ctx.lineTo(x,670);
 				ctx.stroke();
 				
 				if(!forecast_available){

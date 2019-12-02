@@ -235,7 +235,7 @@ function populateList(){
         var forecasts = getForecast(locId, stations);
         var currentLevel = 0;
         
-		// a flag to store the condition of the current alert level
+        // a flag to store the condition of the current alert level
 		// need this but how		var currentAlertlevel = getAlertLevel(currentLevel, advisoryLevel, watchLevel, warningLevel, floodLevel);
 		var currentAlertlevel = 'normal';
   		if (measures == null) measures = 'NA';
@@ -504,8 +504,18 @@ function clearMyStation() {
  ******************************************************************************/
 function setupChart() {
 	initializeChart();
-
 	$('#station-list, #my-station').on('click', 'li', openChart);
+	$('#station-readings').on('click', '.close', function() {
+		$('body').removeClass('show-station');
+	});
+
+	setupDateWarning();
+}
+
+function setupChart_NEW() {
+	initializeChart_NEW();
+
+	$('#station-list, #my-station').on('click', 'li', openChart_NEW);
 	$('#station-readings').on('click', '.close', function() {
 		$('body').removeClass('show-station');
 	});
@@ -519,6 +529,298 @@ function setupChart() {
  *
  * @returns {undefined}
  ******************************************************************************/
+ 	Chart.defaults.modifiedline = Chart.defaults.line;
+
+    var timeFormat = 'DD/MM/YYYY';
+	var forecast_available = true;
+	var borderColorProp = function(){ 
+							if(forecast_available)
+							return 'rgba(198, 179, 255, 1)';
+							return 'rgba(198, 179, 255, 0)';	
+						}
+ 	var forecast_data = function(){ 
+							if(forecast_available)
+							return [
+										
+										{ x: "06/02/2019 01:00", y: 6.7 }, 
+										{ x: "06/02/2019 14:20", y: 6.8 },
+										{ x: "06/02/2019 15:20", y: 6.8 },
+										{ x: "06/02/2019 16:20", y: 6.9 },
+										{ x: "06/02/2019 17:20", y: 7.1 },
+										{ x: "06/02/2019 18:20", y: 7.2 },
+										
+										{ x: "07/02/2019 01:20", y: 7.2 },
+										{ x: "07/02/2019 03:20", y: 7.3 },
+										{ x: "07/02/2019 05:20", y: 7.7 },
+										{ x: "07/02/2019 07:20", y: 7.6 },
+										{ x: "07/02/2019 09:20", y: 7.6 },
+										{ x: "07/02/2019 11:20", y: 7.7 },
+										
+										{ x: "08/02/2019 03:20", y: 8.1 },
+										{ x: "08/02/2019 04:20", y: 8.2 },
+										{ x: "08/02/2019 05:20", y: 8.3 },
+										{ x: "08/02/2019 06:20", y: 8.4 },
+										{ x: "08/02/2019 07:20", y: 8.6 },
+										{ x: "08/02/2019 08:20", y: 8.9 },
+										
+										{ x: "09/02/2019 09:20", y: 9.1 },
+										{ x: "09/02/2019 10:20", y: 8.7 },
+										{ x: "09/02/2019 11:20", y: 8.6 },
+										{ x: "09/02/2019 12:20", y: 8.4 },
+										{ x: "09/02/2019 13:20", y: 8.3 },
+										{ x: "09/02/2019 14:20", y: 8.2 },
+
+										{ x: "10/02/2019 00:00", y: 5.9 },
+										{ x: "10/02/2019 01:00", y: 5.7 },
+										{ x: "10/02/2019 02:00", y: 5.6 },
+										{ x: "10/02/2019 03:00", y: 5.0 },
+										{ x: "10/02/2019 04:00", y: 5.2 },
+										{ x: "10/02/2019 05:00", y: 5.1 },
+										{ x: "10/02/2019 06:00", y: 5.3 },
+										
+									];
+							return [
+										{ x: "06/02/2019 12:20", y: "" }, 
+										{ x: "07/02/2019 12:20", y: "" },
+										{ x: "08/02/2019 12:20", y: "" }
+									];	
+						}
+
+ 	var config = {
+        type:    'modifiedline',
+        data:    {
+        	//labels: chartLabels[lang]['dates'], //TBD
+            datasets: [
+                {
+                    label: chartLabels[lang]['yAxis'],
+                    data: [
+								{ x: "01/02/2019 00:00", y: 4.5 },
+								{ x: "01/02/2019 01:00", y: 4.7 },
+								{ x: "01/02/2019 02:00", y: 4.8 },
+								{ x: "01/02/2019 03:00", y: 5.0 },
+								{ x: "01/02/2019 04:00", y: 5.2 },
+								{ x: "01/02/2019 05:00", y: 5.3 },
+								{ x: "01/02/2019 06:00", y: 5.5 },
+								
+								{ x: "02/02/2019 12:00", y: 5.7 }, 
+								{ x: "02/02/2019 14:20", y: 5.8 },
+								{ x: "02/02/2019 15:20", y: 5.8 },
+								{ x: "02/02/2019 16:20", y: 5.9 },
+								{ x: "02/02/2019 17:20", y: 6.1 },
+								{ x: "02/02/2019 18:20", y: 5.9 },
+								
+								{ x: "03/02/2019 01:20", y: 6.2 },
+								{ x: "03/02/2019 03:20", y: 6.3 },
+								{ x: "03/02/2019 05:20", y: 6.7 },
+								{ x: "03/02/2019 07:20", y: 6.8 },
+								{ x: "03/02/2019 09:20", y: 6.9 },
+								{ x: "03/02/2019 11:20", y: 5.9 },
+								
+								{ x: "04/02/2019 03:20", y: 4.6 },
+								{ x: "04/02/2019 04:20", y: 4.5 },
+								{ x: "04/02/2019 05:20", y: 4.8 },
+								{ x: "04/02/2019 06:20", y: 4.4 },
+								{ x: "04/02/2019 07:20", y: 4.4 },
+								{ x: "04/02/2019 08:20", y: 4.3 },
+								{ x: "04/02/2019 24:00", y: 4.2 },
+
+								{ x: "05/02/2019 03:20", y: 4.0 },
+								{ x: "05/02/2019 04:20", y: 3.9 },
+								{ x: "05/02/2019 05:20", y: 3.8 },
+								{ x: "05/02/2019 06:20", y: 3.4 },
+								{ x: "05/02/2019 07:20", y: 3.6 },
+								{ x: "05/02/2019 08:20", y: 3.9 },
+								{ x: "05/02/2019 24:00", y: 3.9 }
+								
+								
+						  ],
+                    fill: true,
+                    borderColor: 'rgb(121, 210, 121)'
+                },
+                {
+                    label: "Predicted",
+                    data:  forecast_data(),
+                    fill:  false,
+					borderDash: [4, 2],
+                    borderColor: borderColorProp()
+                }
+            ]
+        },
+        options: {
+			spanGaps: false,
+			legend: { 
+						display: false,
+					  	position: 'bottom'	
+					  },
+            responsive: true,
+            maintainAspectRatio: false, //Adding this makes graph fit on the screen
+            title:      {
+                display: true,
+                text:    "Fredericton Water Level"
+            },
+            scales:     {
+                xAxes: [{
+                    type:       "time",
+                    time: {
+							parser: 'DD/MM/YYYY HH:mm',
+							tooltipFormat: 'll HH:mm',
+							unit: 'day',
+							unitStepSize: 1,
+							displayFormats: {
+							  'day': 'MM/DD/YYYY'
+							}},
+					
+					scaleLabel: {
+                        display:     true,
+                        labelString: 'Date/Time'
+                    },
+					ticks: {
+							autoSkip: true,
+							maxTicksLimit: 11,
+							stepSize: 2
+						}
+                }],
+                yAxes: [{
+                	id: 'y-axis-0',
+					scaleLabel: {
+						display: true,
+						labelString: chartLabels[lang]['yAxis']
+					},
+					ticks: {
+						min: 0,
+						max: 10 //MALLIK: this has to be dynamic
+					}
+                    /*
+                    scaleLabel: {
+                        display:     true,
+                        labelString: 'Water Level(m)'
+                    }*/
+                }]
+            },
+
+		    pan: {
+		      enabled: true,
+		      mode: "xy", 
+		    },
+            zoom: {
+		      enabled: true,
+		      mode: "xy",
+		      
+		    },
+            //Annotation STARTS
+            
+            annotation: { 
+				annotations: [{
+					type: 'line',
+					mode: 'horizontal',
+					id: '0',
+					scaleID: 'y-axis-0',
+					value: 6, //MALLIK: Has to be dynamic
+					borderColor: 'rgba(252, 238, 33, 0.5)',
+					borderWidth: 3,
+					label: {
+						enabled: true,
+						content: chartLabels[lang]['levels'][0],
+						position: 'right'
+					}
+				},
+				{
+					type: 'line',
+					mode: 'horizontal',
+					id: '1',
+					scaleID: 'y-axis-0',
+					value: 7,
+					borderColor: 'rgba(247, 147, 30, 0.5)',
+					borderWidth: 3,
+					label: {
+						enabled: true,
+						content: chartLabels[lang]['levels'][1],
+						position: 'right'
+					}
+				},
+				{
+					type: 'line',
+					mode: 'horizontal',
+					id: '2',
+					scaleID: 'y-axis-0',
+					value: 8,
+					borderColor: 'rgba(255, 67, 67, 0.5)',
+					borderWidth: 3,
+					label: {
+						enabled: true,
+						content: chartLabels[lang]['levels'][2],
+						position: 'right'
+					}
+				},
+				{
+					type: 'line',
+					mode: 'horizontal',
+					id: '3',
+					scaleID: 'y-axis-0',
+					value: 9,
+					borderColor: 'rgba(0, 0, 0, 0.5)',
+					borderWidth: 3,
+					label: {
+						enabled: true,
+						content: chartLabels[lang]['levels'][3],
+						position: 'right'
+					}
+				}]
+			}
+			
+			//Annotation ENDS
+        }
+		
+    };
+
+	var custom = Chart.controllers.line.extend({
+			draw: function(ease) {
+				// Call super method first
+				Chart.controllers.line.prototype.draw.call(this, ease);
+
+				// Now we can do some custom drawing for this dataset. Here we'll draw a red box around the first point in each dataset
+				//var meta = this.getMeta();
+				//var pt0 = meta.data[0];
+				//var radius = pt0._view.radius;
+				
+				//console.log(config.data.datasets[0]._meta[0].data[25]._model.x);
+				//console.log(Chart.controllers.line);
+				console.log(config.options.scales.startPoint);
+				
+				var x = config.data.datasets[0]._meta[0].data[32]._model.x; // 26 data, taking x of the last data of Actual water level
+				var ctx = this.chart.chart.ctx;
+				var line_alpha = 50;
+				
+				ctx.save();
+				ctx.strokeStyle  = 'rgba(255, 173, 153, ' + line_alpha + ')';
+				ctx.beginPath(); 
+				ctx.moveTo(x, 32);
+				ctx.lineTo(x, 295);
+				ctx.stroke();
+				
+				if(!forecast_available){
+					
+					ctx.strokeStyle = 'red';
+					ctx.lineWidth = 1;
+					ctx.strokeRect(900, 380, 500, 80);
+					ctx.fillStyle  = 'black';
+					ctx.font = "20px Arial";
+					ctx.fillText("Forecast Data not available at this location", 950, 420);	
+				}
+				ctx.restore();
+				
+			}
+		});
+	
+	Chart.controllers.modifiedline = custom;
+
+function initializeChart_NEW(){
+	var ctx = $("#flood-chart");
+	floodChart = new Chart(ctx, config);
+
+}
+
+
 function initializeChart() {
 	var ctx = $("#flood-chart");
 	floodChart = new Chart(ctx, {
@@ -621,6 +923,8 @@ function initializeChart() {
 			}
 		}
 	});
+
+	floodChart.ctx.canvas.addEventListener('wheel', floodChart._wheelHandler);
 }
 
 /*******************************************************************************
@@ -628,6 +932,30 @@ function initializeChart() {
  *
  * @returns {undefined}
  ******************************************************************************/
+function openChart_NEW(){
+	var id = $(this).data('id'),
+	station = stationList[id],
+	waterLevels = station['waterLevels'],
+	alertLevels = station['alertLevels'],
+	name = station['name'],
+	min = 0, // the min value displayed on the chart
+	max = 200; // the max value displayed on the chart
+	$('#station-title').text(name);
+	$('#station-readings').data('id', id);
+
+	if (Cookies.get('station_id') == id) {
+		$('#choose-station').prop('checked', true);
+	} else {
+		$('#choose-station').prop('checked', false);
+	}
+
+	floodChart.options.scales.yAxes[0].ticks.min = 2;
+	floodChart.options.scales.yAxes[0].ticks.max = 10;
+
+	floodChart.update(0);
+	$('body').addClass('show-station');
+}
+
 function openChart() {
 	var id = $(this).data('id'),
 	station = stationList[id],
@@ -746,8 +1074,8 @@ function initMap(AddStation) {
 	// the map needs station data to be created
 	populateList();
 	setupNav();
-	setupChart();
-
+	//setupChart();
+	setupChart_NEW();
 	// create a new map centered on New Brunswick
 /*	var nb = new google.maps.LatLng(46.5653,-67.0619);
 	var map = new google.maps.Map(document.getElementById('map'), {

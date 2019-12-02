@@ -518,7 +518,7 @@ h2 {margin-top: 0;}
 		max-height: calc(100vh - 100px);
 		position: absolute;
 		top: 30px;
-		width: 385px;
+		width: 585px; /*MALLIK: was 385*/
 	}
 
 	#chart-wrapper {

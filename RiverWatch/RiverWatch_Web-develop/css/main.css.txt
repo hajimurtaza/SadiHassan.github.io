@@ -510,7 +510,7 @@ h2 {margin-top: 0;}
 	}
 
 	#content {
-		left:276px;
+		left: 276px;
 	}
 
 	#station-readings {

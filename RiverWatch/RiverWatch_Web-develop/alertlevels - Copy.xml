@@ -3,7 +3,6 @@
 	<station>
 		<name>Connors</name> 
 		<stationID>0</stationID> 
-        <locationId>Connors</locationId>
 		<advisory>168.7</advisory>
 		<watch>169.7</watch>
 		<warning>170.2</warning>
@@ -12,7 +11,6 @@
 	<station>
 		<name>Saint-François</name> 
 		<stationID>1</stationID> 
-        <locationId>St_Francois</locationId>
 		<advisory>158.2</advisory>
 		<watch>159.2</watch>
 		<warning>159.7</warning>
@@ -21,7 +19,6 @@
 	<station>
 		<name>Clair</name> 
 		<stationID>2</stationID> 
-        <locationId>Ft_Kent</locationId>
 		<advisory>154.2</advisory>
 		<watch>155.2</watch>
 		<warning>155.7</warning>
@@ -30,7 +27,6 @@
 	<station>
 		<name>Baker Brook</name> 
 		<stationID>3</stationID> 
-        <locationId>Baker_Brook</locationId>
 		<advisory>148.8</advisory>
 		<watch>149.8</watch>
 		<warning>150.3</warning>
@@ -39,7 +35,6 @@
 	<station>
 		<name>St. Hilaire</name> 
 		<stationID>4</stationID> 
-        <locationId>St_Hilaire</locationId>
 		<advisory>143.5</advisory>
 		<watch>144.5</watch>
 		<warning>145</warning>
@@ -48,7 +43,6 @@
 	<station>
 		<name>Edmundston</name> 
 		<stationID>5</stationID> 
-        <locationId>Edmundston</locationId>
 		<advisory>138.5</advisory>
 		<watch>139.5</watch>
 		<warning>140</warning>
@@ -57,7 +51,6 @@
 	<station>
 		<name>Iroquois</name> 
 		<stationID>6</stationID> 
-        <locationId>Iroquois</locationId>
 		<advisory>138.65</advisory>
 		<watch>139.65</watch>
 		<warning>140.15</warning>
@@ -66,7 +59,6 @@
 	<station>
 		<name>Saint-Basile</name> 
 		<stationID>7</stationID> 
-        <locationId>St_Basile</locationId>
 		<advisory>141.9</advisory>
 		<watch>142.9</watch>
 		<warning>143.4</warning>
@@ -75,7 +67,6 @@
 	<station>
 		<name>Sainte-Anne</name> 
 		<stationID>8</stationID> 
-        <locationId>St_Anne</locationId>
 		<advisory>136.3</advisory>
 		<watch>137.3</watch>
 		<warning>137.8</warning>
@@ -84,7 +75,6 @@
 	<station>
 		<name>Saint-Léonard</name> 
 		<stationID>9</stationID> 
-        <locationId>St_Leonard</locationId>
 		<advisory>134</advisory>
 		<watch>135</watch>
 		<warning>135.5</warning>
@@ -93,7 +83,6 @@
 	<station>
 		<name>Perth-Andover</name> 
 		<stationID>10</stationID> 
-        <locationId>Perth</locationId>
 		<advisory>75.2</advisory>
 		<watch>76.2</watch>
 		<warning>76.7</warning>
@@ -102,7 +91,6 @@
 	<station>
 		<name>Simonds</name> 
 		<stationID>11</stationID> 
-        <locationId>Simonds</locationId>
 		<advisory>46.5</advisory>
 		<watch>47.5</watch>
 		<warning>48.0</warning>
@@ -111,7 +99,6 @@
 	<station>
 		<name>Hartland</name> 
 		<stationID>12</stationID> 
-        <locationId>Hartland</locationId>
 		<advisory>43.7</advisory>
 		<watch>44.7</watch>
 		<warning>45.2</warning>
@@ -120,7 +107,6 @@
 	<station>
 		<name>Woodstock</name> 
 		<stationID>13</stationID> 
-        <locationId>Woodstock</locationId>
 		<advisory>39.4</advisory>
 		<watch>40.4</watch>
 		<warning>40.9</warning>
@@ -129,7 +115,6 @@
 	<station>
 		<name>Nashwaak (Durham Bridge)</name>
 		<stationID>14</stationID>
-        <locationId>Nashwaak</locationId>
 		<advisory>19</advisory>
 		<watch>20</watch>
 		<warning>20.5</warning>
@@ -138,7 +123,6 @@
 	<station>
 		<name>Kennebecasis (Apohaqui)</name>
 		<stationID>15</stationID>
-        <locationId>Kennebecasis</locationId>
 		<advisory>11</advisory>
 		<watch>12</watch>
 		<warning>12.5</warning>
@@ -147,7 +131,6 @@
 	<station>
 		<name>Fredericton</name>
 		<stationID>16</stationID>
-        <locationId>Fredericton</locationId>
 		<advisory>4.5</advisory>
 		<watch>5.5</watch>
 		<warning>6</warning>
@@ -156,7 +139,6 @@
 	<station>
 		<name>Maugerville</name>
 		<stationID>17</stationID>
-        <locationId>Maugerville</locationId>
 		<advisory>4</advisory>
 		<watch>5</watch>
 		<warning>5.5</warning>
@@ -165,7 +147,6 @@
 	<station>
 		<name>Jemseg</name>
 		<stationID>18</stationID>
-        <locationId>Jemseg</locationId>
 		<advisory>2.3</advisory>
 		<watch>3.3</watch>
 		<warning>3.8</warning>
@@ -174,7 +155,6 @@
 	<station>
 		<name>Grand Lake</name>
 		<stationID>19</stationID>
-        <locationId>Grand_Lake</locationId>
 		<advisory>3</advisory>
 		<watch>4</watch>
 		<warning>4.5</warning>
@@ -183,7 +163,6 @@
 	<station>
 		<name>Sheffield-Lakeville Corner</name>
 		<stationID>20</stationID>
-        <locationId>Lakeville_Corner</locationId>
 		<advisory>2.8</advisory>
 		<watch>3.8</watch>
 		<warning>4.3</warning>
@@ -192,7 +171,6 @@
 	<station>
 		<name>Oak Point</name>
 		<stationID>21</stationID>
-        <locationId>Oak_Point</locationId>
 		<advisory>2.7</advisory>
 		<watch>3.7</watch>
 		<warning>4.2</warning>
@@ -201,7 +179,6 @@
 	<station>
 		<name>Quispamsis - Saint John</name>
 		<stationID>22</stationID>
-        <locationId>Saint_John</locationId>
 		<advisory>2.2</advisory>
 		<watch>3.2</watch>
 		<warning>3.7</warning>

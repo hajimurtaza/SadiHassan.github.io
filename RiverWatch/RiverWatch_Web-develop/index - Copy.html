@@ -14,114 +14,11 @@
 		<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
 	</head>
 	<body class="en">
-<script src="https://js.arcgis.com/4.10/"></script>
-<script>
-  require([
-      "esri/Map",
-      "esri/Basemap",
-      "esri/views/MapView",
-      "esri/layers/MapImageLayer",
-      "esri/layers/TileLayer",
-	  "esri/widgets/CoordinateConversion",
-	  "esri/geometry/Extent",
-	  "esri/geometry/Geometry",
-	  "esri/geometry/Point",
-	  "esri/geometry/Polygon",
-      "esri/geometry/Circle",
-	  "esri/tasks/QueryTask",
-	  "esri/Graphic",
-	  "esri/layers/FeatureLayer",
-      "esri/layers/GraphicsLayer",
-	  "esri/widgets/Popup",
-      "esri/widgets/LayerList",
-      "esri/tasks/GeometryService",
-      "esri/geometry/SpatialReference",
-      "esri/tasks/support/ProjectParameters",
-      "esri/request",
-      "esri/views/2d/draw/Draw",
-      "esri/widgets/ScaleBar",
-      "esri/Graphic",
-      "esri/core/watchUtils",
-      "esri/tasks/PrintTask"
-  ], function(Map, Basemap, MapView, MapImageLayer, TileLayer, 
-      CoordinateConversion, Extent, Geometry, Point, Polygon, Circle, QueryTask, Graphic, FeatureLayer, GraphicsLayer, Popup, LayerList,
-      GeometryService, SpatialReference, ProjectParameters, esriRequest, Draw, ScaleBar, Graphic, watchUtils, 
-      PrintTask
-  ) {
-    var  brViews = [];
-    var  brCurVw = -1;
-    var  brNumVws = 0;
-    var  brVwNum = 0;
-    var  brMaxVws = 10;
-    var  brSwapVws = false;
-    var  brVerts = [];
-    var  brSize = 0;
-    var  brtmp = false;
-    var  brMaxSize = 0;
-    var  brCross = false;
-    var  selLayer = null;
-      // Create a WebTileLayer with a third-party cached service
-
-      var mapBaseLayer = new TileLayer({
-        url: "https://geonb.snb.ca/arcgis/rest/services/GeoNB_Basemap_Topo/MapServer",
-        copyright: "SNB",
-		  visible: true
-      });
-      // Create a Basemap with the WebTileLayer.  The thumbnailUrl will be used for
-      // the image in the BasemapToggle widget.
-      var snbbase = new Basemap({
-        baseLayers: [mapBaseLayer],
-        title: "Terrain",
-        id: "terrain",
-        thumbnailUrl: "https://geonb.snb.ca/arcgis/rest/services/GeoNB_Basemap_Topo/MapServer/export?bbox=2320000.%2C7360000.%2C2700000.%2C7650000.&bboxSR=&layers=&layerDefs=&size=64,64&imageSR=&format=png&transparent=false&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&f=image"
-      });
-
-      var map = new Map({
-		  basemap: snbbase
-      });
-
-
-      
-	  var inex = new Extent({
-	      xmin:2304250,
-		  ymin: 7281217, 
-		  xmax: 2719117, 
-		  ymax: 7688676,
-		  spatialReference: 2036});
-	  
-      var cenPt = new Point({
-        x: 2500000, 
-        y: 7450000,
-        spatialReference: 2036
-      });
-      
-      var view = new MapView({
-        container: "viewDiv",
-        map: map,
-		extent: inex
-		// Sets center point of view using longitude,latitude
-      });
-
-    var  sbWidget = new ScaleBar({
-      view: view,
-      unit: "metric"
-    });
-    view.ui.add(sbWidget, "bottom-right");
-     
-    var idraw = new Draw({
-        view: view
-    });
-  });   
-
-</script>
- <h3> Testing </h3>
- <div id="viewDiv"> </div>
 		<!--[if lte IE 9]>
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-		<![endif]-- >
+		<![endif]-->
 
 		<header id="header">
 			<h1 class="en">River Watch Mobile<span class="subtitle"> - Water Level Current and Forecast</span></h1>
@@ -164,13 +61,13 @@
 				<div class="disclaimer">
 					<div class="en">
 						<h2>Disclaimer</h2>
-						<p><!-- This flood mapping information, including flood lines, extents, flood risk areas, and areas flooded in particular events, is provided for general information purposes only. Due to mapping and other inaccuracies, lines, boundaries or extents may not correspond exactly with locations on the ground. If there is any question whether a given property or location is within a flood risk area, the location and elevation should be determined by a survey. -- > No representations or warranties, either express or implied, are made as to the accuracy of the information presented and the user assumes the entire risk as to the use of any and all information.</p>
+						<p><!-- This flood mapping information, including flood lines, extents, flood risk areas, and areas flooded in particular events, is provided for general information purposes only. Due to mapping and other inaccuracies, lines, boundaries or extents may not correspond exactly with locations on the ground. If there is any question whether a given property or location is within a flood risk area, the location and elevation should be determined by a survey. --> No representations or warranties, either express or implied, are made as to the accuracy of the information presented and the user assumes the entire risk as to the use of any and all information.</p>
 						<p>The information displayed here is current as of the date and time indicated. Updates are provided throughout the spring freshet and other times of the year when high water levels are anticipated.</p>
 						<p>Forecast water levels are dependant on a number of factors not least of which is weather forecasts, therefore complete accuracy can not be guaranteed. Users of this service are advised to allow for some margin of error.</p>
 					</div>
 					<div class="fr">
 						<h2>Avertissement</h2>
-						<p><!-- L’information cartographique, y compris les lignes d’inondation, l’étendue de l’eau, les zones inondables et les zones qui ont été inondées lors de crues données, est fournie à titre indicatif seulement. En raison d’imprécisions relatives à la cartographie ou de toute autre inexactitude, il se peut que les lignes, les limites ou les étendues ne correspondent pas exactement aux endroits au sol. Lorsqu’un doute subsiste quant à la possibilité qu’un terrain ou un endroit donné se trouve dans une zone inondable, l’emplacement et l’élévation devraient être déterminés au moyen d’un levé. -- > Le ministère n’offre aucune garantie explicite ou implicite quant à l’exactitude de l’information présentée et l’utilisateur accepte pleinement les risques liés à l’utilisation d’une partie ou de l’ensemble de cette information.</p>
+						<p><!-- L’information cartographique, y compris les lignes d’inondation, l’étendue de l’eau, les zones inondables et les zones qui ont été inondées lors de crues données, est fournie à titre indicatif seulement. En raison d’imprécisions relatives à la cartographie ou de toute autre inexactitude, il se peut que les lignes, les limites ou les étendues ne correspondent pas exactement aux endroits au sol. Lorsqu’un doute subsiste quant à la possibilité qu’un terrain ou un endroit donné se trouve dans une zone inondable, l’emplacement et l’élévation devraient être déterminés au moyen d’un levé. --> Le ministère n’offre aucune garantie explicite ou implicite quant à l’exactitude de l’information présentée et l’utilisateur accepte pleinement les risques liés à l’utilisation d’une partie ou de l’ensemble de cette information.</p>
 						<p>L'information affichée reflète les données actualisées à la date et à l'heure indiquées. Les mises à jour sont fournies pendant la crue printanière et à d'autres moments pendant l'année lorsque des niveaux d'eau élevés sont prévisions.</p>
 						<p>Les prévisions concernant les niveaux d'eau dépendent d'un certain nombre de facteurs, dont les prévisions météorologiques. Par conséquent, une exactitude absolue des renseignements ne peut être garantie. Les utilisateurs du service sont priés de prévoir une certaine marge d'erreur.</p>
 					</div>
@@ -282,9 +179,7 @@
 		</nav>
 
 		<main id="content">
-			<section id="map">
-              <div id="viewDiv"></div>
-            </section>
+			<section id="map"></section>
 			<section id="station-readings" data-id="">
 				<h3 id="station-title"></h3>
 				<div class="close">X</div>
@@ -317,23 +212,24 @@
 
 		<footer>
 		</footer>
-<!--
+
 		<script src="js/vendor/modernizr-3.5.0.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
 
 		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
-<!--		<script src="js/vendor/chartjs-plugin-annotation.min.js"></script>  -- >
+		<script src="js/vendor/chartjs-plugin-annotation.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/station-locations.js"></script>
 		<script src="js/main.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBogcztiGvTqPeQ7ZRpgshvqSjApRGzoUw&callback=initMap"></script>
 
-		<!-- Google Analytics -- >
+		<!-- Google Analytics -->
 		<script>
 			window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
 			ga('create','UA-34468740-1','snb.ca');ga('send','pageview')
 		</script>
-		<script src="https://www.google-analytics.com/analytics.js" async defer></script> -->
+		<script src="https://www.google-analytics.com/analytics.js" async defer></script>
 	</body>
 </html>

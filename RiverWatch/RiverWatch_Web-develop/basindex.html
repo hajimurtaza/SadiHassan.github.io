@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>River Watch Mobile / Surveillance du fleuve mobile</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+	</head>
+	<body class="en">
+<script src="https://js.arcgis.com/4.10/"></script>
+<script>
+  require([
+      "esri/Map",
+      "esri/Basemap",
+      "esri/views/MapView",
+      "esri/layers/MapImageLayer",
+      "esri/layers/TileLayer",
+	  "esri/geometry/Extent",
+	  "esri/geometry/Geometry",
+	  "esri/geometry/Point"
+  ], function(Map, Basemap, MapView, MapImageLayer, TileLayer, Extent, Geometry, Point
+  ) {
+      // Create a WebTileLayer with a third-party cached service
+
+      var mapBaseLayer = new TileLayer({
+        url: "https://geonb.snb.ca/arcgis/rest/services/GeoNB_Basemap_Topo/MapServer",
+        copyright: "SNB",
+		  visible: true
+      });
+      // Create a Basemap with the WebTileLayer.  The thumbnailUrl will be used for
+      // the image in the BasemapToggle widget.
+      var snbbase = new Basemap({
+        baseLayers: [mapBaseLayer],
+        title: "Terrain",
+        id: "terrain",
+        thumbnailUrl: "https://geonb.snb.ca/arcgis/rest/services/GeoNB_Basemap_Topo/MapServer/export?bbox=2320000.%2C7360000.%2C2700000.%2C7650000.&bboxSR=&layers=&layerDefs=&size=64,64&imageSR=&format=png&transparent=false&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&f=image"
+      });
+
+      var map = new Map({
+		  basemap: snbbase
+      });
+
+	  var inex = new Extent({
+	      xmin:2304250,
+		  ymin: 7281217, 
+		  xmax: 2719117, 
+		  ymax: 7688676,
+		  spatialReference: 2036});
+	  
+      var cenPt = new Point({
+        x: 2500000, 
+        y: 7450000,
+        spatialReference: 2036
+      });
+      
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+		extent: inex
+		// Sets center point of view using longitude,latitude
+      });   
+  });   
+
+</script>
+ <h3> Testing </h3>
+ <div id="viewDiv"> </div>
+	</body>
+</html>
